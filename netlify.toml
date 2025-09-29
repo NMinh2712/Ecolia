@@ -1,0 +1,7 @@
+[build]
+  command   = "npm run build"
+  publish   = ""                       # để trống, plugin sẽ quản lý
+  functions = ".netlify/functions"     # thư mục chứa serverless function
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
