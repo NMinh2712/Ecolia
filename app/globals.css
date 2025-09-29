@@ -1,0 +1,229 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/* Updated color system for better text contrast and readability */
+@theme inline {
+  /* Updated ECOLIA Brand Colors to match exact specifications */
+  --color-primary: #2f8f4a;
+  --color-accent: #9bc86b;
+  --color-earth: #8b5a2b;
+  --color-cream: #fbf7f0;
+  --color-text: #1f2d28;
+  --color-muted: #6b7280;
+  --color-danger: #e05a3f;
+
+  /* Updated semantic design tokens for better readability */
+  --color-background: #fbf7f0;
+  --color-foreground: #1f2d28;
+  --color-card: #ffffff;
+  --color-card-foreground: #1f2d28;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1f2d28;
+  --color-primary: #2f8f4a;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f8f9fa;
+  --color-secondary-foreground: #1f2d28;
+  --color-muted: #f8f9fa;
+  --color-muted-foreground: #6b7280;
+  --color-accent: #9bc86b;
+  --color-accent-foreground: #1f2d28;
+  --color-destructive: #e05a3f;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #e5e7eb;
+  --color-input: #ffffff;
+  --color-ring: #2f8f4a;
+  --color-chart-1: #2f8f4a;
+  --color-chart-2: #9bc86b;
+  --color-chart-3: #8b5a2b;
+  --color-chart-4: #6b7280;
+  --color-chart-5: #e05a3f;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: #fbf7f0;
+  --color-sidebar-foreground: #1f2d28;
+  --color-sidebar-primary: #2f8f4a;
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: #f8f9fa;
+  --color-sidebar-accent-foreground: #1f2d28;
+  --color-sidebar-border: #e5e7eb;
+  --color-sidebar-ring: #2f8f4a;
+
+  /* Updated font system to use Inter as specified */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Updated custom styles for better visual hierarchy */
+.hero-gradient {
+  background: linear-gradient(135deg, #fbf7f0 0%, rgba(155, 200, 107, 0.08) 100%);
+}
+
+.texture-overlay {
+  position: relative;
+}
+
+.texture-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/placeholder.svg?height=400&width=800");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(47, 143, 74, 0.1), 0 10px 10px -5px rgba(47, 143, 74, 0.04);
+}
+
+/* Enhanced accessibility and focus states */
+.focus-visible:focus-visible {
+  outline: 2px solid #2f8f4a;
+  outline-offset: 2px;
+}
+
+/* Improved animation utilities */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out;
+}
+
+/* Enhanced responsive typography for better readability */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .section-title {
+    font-size: 1.875rem;
+    line-height: 1.3;
+  }
+}
+
+@media (min-width: 641px) {
+  .hero-title {
+    font-size: 2.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .section-title {
+    font-size: 2.25rem;
+    line-height: 1.3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 3.25rem;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+  .section-title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+}
+
+/* Added utility classes for consistent spacing and typography */
+.text-readable {
+  line-height: 1.6;
+  color: #1f2d28;
+}
+
+.text-muted-readable {
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.text-high-contrast {
+  color: #1f2d28;
+  font-weight: 500;
+}
+
+.section-spacing {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 768px) {
+  .section-spacing {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+/* Added smooth scrolling for better navigation experience */
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
