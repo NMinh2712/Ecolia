@@ -21,8 +21,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
-                <p className="text-foreground/70">info@ecolia.vn</p>
-                <p className="text-foreground/70">support@ecolia.vn</p>
+                <p className="text-foreground/70"> Ecolia@gmail.com</p>
               </div>
             </div>
 
@@ -33,7 +32,6 @@ export default function ContactSection() {
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">Điện thoại</h3>
                 <p className="text-foreground/70">+84 123 456 789</p>
-                <p className="text-foreground/70">+84 987 654 321</p>
               </div>
             </div>
 
@@ -44,9 +42,9 @@ export default function ContactSection() {
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">Địa chỉ</h3>
                 <p className="text-foreground/70">
-                  123 Đường Nông Nghiệp Bền Vững
+                 205N1 Trần Hưng Đạo Nối Dài
                   <br />
-                  Quận 1, TP. Hồ Chí Minh
+                  Cái Răng, Cần Thơ
                   <br />
                   Việt Nam
                 </p>

@@ -32,11 +32,14 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <button onClick={() => handleNavClick("#home")} className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">E</span>
-            </div>
+            <img
+              src="/logo_exe.jpg"
+              alt="ECOLIA Logo"
+              className="w-10 h-10 object-cover rounded-full"
+            />
             <span className="font-serif font-bold text-xl text-foreground">ECOLIA</span>
           </button>
+
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
