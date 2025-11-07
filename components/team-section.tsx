@@ -1,21 +1,39 @@
 export default function TeamSection() {
   const teamMembers = [
     {
-      name: "Nguyễn Minh Anh",
-      role: "Nhà sáng lập & CEO",
+      name: "Phùng Thị Thảo My",
+      role: "Giám đốc Điều hành & Kiêm phụ trách Tài chính - Hành chính",
       description:
         "Chuyên gia về nông nghiệp bền vững với 10 năm kinh nghiệm trong lĩnh vực tái chế phụ phẩm nông nghiệp.",
       image: "/team-member-ceo-sustainable-agriculture-expert.jpg",
     },
     {
-      name: "Trần Văn Hùng",
-      role: "Giám đốc Sản xuất",
+      name: "Nguyễn Ngọc San San",
+      role: "Trưởng bộ phận Sản xuất",
       description: "Kỹ sư công nghệ sinh học, chuyên về quy trình sản xuất vật liệu phân hủy sinh học.",
       image: "/team-member-production-director-biotechnology-eng.jpg",
     },
     {
-      name: "Lê Thị Mai",
-      role: "Trưởng phòng R&D",
+      name: "Phan Nguyễn Thanh Bạch",
+      role: "Trưởng bộ phận Thiết kế - Thương hiệu",
+      description: "Tiến sĩ Khoa học Vật liệu, nghiên cứu và phát triển công nghệ chế biến phụ phẩm nông nghiệp.",
+      image: "/team-member-rd-director-materials-science-phd.jpg",
+    },
+      {
+      name: "Trần Trung Nhân",
+      role: "Chuyên viên phát triển Sản phẩm",
+      description: "Tiến sĩ Khoa học Vật liệu, nghiên cứu và phát triển công nghệ chế biến phụ phẩm nông nghiệp.",
+      image: "/team-member-rd-director-materials-science-phd.jpg",
+    },
+      {
+      name: "Phạm Lê Nhật Minh",
+      role: "Chuyên viên Kỹ thuật",
+      description: "Tiến sĩ Khoa học Vật liệu, nghiên cứu và phát triển công nghệ chế biến phụ phẩm nông nghiệp.",
+      image: "/team-member-rd-director-materials-science-phd.jpg",
+    },
+      {
+      name: "Vỏ Thị Thủy Tiên",
+      role: "Marketing & Chăm sóc khách hàng",
       description: "Tiến sĩ Khoa học Vật liệu, nghiên cứu và phát triển công nghệ chế biến phụ phẩm nông nghiệp.",
       image: "/team-member-rd-director-materials-science-phd.jpg",
     },

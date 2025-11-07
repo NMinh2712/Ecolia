@@ -61,19 +61,19 @@ export default function AboutSection() {
               <h3 className="text-2xl font-bold text-foreground mb-6">Thông tin công ty</h3>
               <div className="space-y-4 text-readable">
                 <div>
-                  <strong className="text-foreground">Tên công ty:</strong> ECOLIA Vietnam
+                  <strong className="text-foreground">Tên công ty:</strong> ECOLIA 
                 </div>
                 <div>
-                  <strong className="text-foreground">Địa chỉ:</strong> Khu Công nghệ cao TP.HCM
+                  <strong className="text-foreground">Địa chỉ:</strong> 205N1 Trần Hưng Đạo Nối Dài, Cái Răng, Cần Thơ
                 </div>
                 <div>
-                  <strong className="text-foreground">Ngày thành lập:</strong> 2024
+                  <strong className="text-foreground">Ngày thành lập:</strong> 30/09/2025
                 </div>
                 <div>
-                  <strong className="text-foreground">Email:</strong> info@ecolia.vn
+                  <strong className="text-foreground">Email:</strong> Ecolia@gmail.com
                 </div>
                 <div>
-                  <strong className="text-foreground">Fanpage:</strong> facebook.com/ecolia.vietnam
+                  <strong className="text-foreground">Fanpage:</strong> facebook.com/Ecolia.id.vn
                 </div>
               </div>
             </div>

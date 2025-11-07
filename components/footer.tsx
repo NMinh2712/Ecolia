@@ -11,21 +11,28 @@ export default function Footer() {
           {/* About */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-cream rounded-full flex items-center justify-center">
-                <span className="text-earth font-bold text-sm">E</span>
-              </div>
+              <img
+                src="/logo_exe.jpg"
+                alt="ECOLIA Logo"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+
               <span className="font-serif font-bold text-xl">ECOLIA</span>
             </div>
             <p className="text-cream/80 leading-relaxed">
               Chậu cây tự phân hủy từ lõi bắp — Giải pháp bền vững cho tương lai xanh.
             </p>
             <div className="flex space-x-4">
-              <Button size="sm" variant="ghost" className="text-cream hover:bg-cream/10">
-                <Facebook className="w-5 h-5" />
-              </Button>
-              <Button size="sm" variant="ghost" className="text-cream hover:bg-cream/10">
-                <Instagram className="w-5 h-5" />
-              </Button>
+              <a
+                href="https://www.facebook.com/Ecolia.id.vn/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="sm" variant="ghost" className="text-cream hover:bg-cream/10">
+                  <Facebook className="w-5 h-5" />
+                </Button>
+              </a>
+
             </div>
           </div>
 
@@ -62,7 +69,8 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start space-x-2">
                 <MapPin className="w-5 h-5 text-cream/60 mt-0.5 flex-shrink-0" />
-                <span className="text-cream/80">123 Đường Xanh, Quận Bền Vững, TP.HCM</span>
+                <span className="text-cream/80">205N1 Trần Hưng Đạo Nối Dài, Cái Răng, Cần Thơ
+                </span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone className="w-5 h-5 text-cream/60" />
@@ -70,7 +78,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="w-5 h-5 text-cream/60" />
-                <span className="text-cream/80">hello@ecolia.vn</span>
+                <span className="text-cream/80">Ecolia@gmail.com
+                </span>
               </li>
             </ul>
           </div>

@@ -3,25 +3,25 @@ import { Badge } from "@/components/ui/badge"
 export default function ProductsSection() {
   const products = [
     {
-      name: "EcoGreen Mini",
+      name: "2W – Chậu ươm cây giống",
       description: "Chậu ươm 8×7 cm — Phân hủy 2–4 tuần. Lý tưởng cho hạt giống & rau gia vị.",
       image: "/small-biodegradable-plant-pot-8x7cm-corn-cob-mater.jpg",
       biodegradationTime: "2–4 tuần",
       size: "8×7 cm",
     },
     {
-      name: "EcoGreen Standard",
-      description: "Chậu trồng 12×10 cm — Phân hủy 4–6 tuần. Hoàn hảo cho cây con và hoa nhỏ.",
+      name: "8W – Chậu cây cảnh cỡ vừa",
+      description: "Chậu trồng 15×13 cm — Phân hủy 5–8 tuần. Thích hợp trồng cây nội thất nhỏ như sen đá, xương rồng, trầu bà, lan ý.",
       image: "/medium-biodegradable-plant-pot-12x10cm-natural-bro.jpg",
-      biodegradationTime: "4–6 tuần",
-      size: "12×10 cm",
+      biodegradationTime: "5–8 tuần",
+      size: "15×13 cm",
     },
     {
-      name: "EcoGreen Large",
-      description: "Chậu lớn 15×12 cm — Phân hủy 6–8 tuần. Dành cho cây trồng lâu dài.",
+      name: "12W – Chậu cây sân vườn",
+      description: "Chậu lớn 25×20 cm — Phân hủy 9–12 tuần. Dành cho cây trồng lâu dài.",
       image: "/large-biodegradable-plant-pot-15x12cm-sustainable-.jpg",
-      biodegradationTime: "6–8 tuần",
-      size: "15×12 cm",
+      biodegradationTime: "9–12 tuần",
+      size: "25×20 cm",
     },
   ]
 

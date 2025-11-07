@@ -14,7 +14,7 @@ export const metadata = {
   description:
     "ECOLIA tạo ra chậu cây tự phân hủy từ lõi bắp và phụ phẩm nông nghiệp — thân thiện môi trường, bổ sung dinh dưỡng cho đất. Khám phá dòng sản phẩm EcoGreen.",
   keywords: "chậu cây phân hủy, lõi bắp, thân thiện môi trường, nông nghiệp bền vững, sống xanh",
-    generator: 'v0.app'
+    generator: 'Ecolia'
 }
 
 export default function RootLayout({
