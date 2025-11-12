@@ -73,7 +73,7 @@ export default function HeroSection() {
           <div className="relative">
             <div className="aspect-square rounded-2xl overflow-hidden bg-white shadow-lg">
               <img
-                src="/biodegradable-plant-pot-made-from-corn-cob-with-gr.jpg"
+                src="ecoliane.jpg"
                 alt="Chậu cây ECOLIA tự phân hủy từ lõi bắp với cây xanh đang phát triển"
                 className="w-full h-full object-cover"
               />
