@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 import { Chatbot } from "@/components/chatbot"
 import { products } from "@/lib/products"
 import { values } from "@/lib/values"
