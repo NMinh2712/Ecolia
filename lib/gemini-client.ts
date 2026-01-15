@@ -62,11 +62,12 @@ export function clearEmbeddingCache(): void {
 }
 
 export async function generateText(prompt: string): Promise<string> {
+  // Trigger rebuild
   const client = getGeminiClient();
   
   // Use available stable model (SDK handles version)
   const model = client.getGenerativeModel({ 
-    model: "models/gemini-1.0-pro"
+    model: "gemini-2.5-flash"
   });
 
   try {
@@ -85,7 +86,7 @@ export async function generateTextWithStreaming(
 ): Promise<string> {
   const client = getGeminiClient();
   const model = client.getGenerativeModel({ 
-    model: "models/gemini-1.0-pro"
+    model: "gemini-2.5-flash"
   });
 
   const result = await model.generateContentStream(prompt);
@@ -127,7 +128,7 @@ export async function chatConversation(
 ): Promise<string> {
   const client = getGeminiClient();
   const model = client.getGenerativeModel({ 
-    model: "models/gemini-1.0-pro"
+    model: "gemini-2.5-flash"
   });
 
   const chat = model.startChat({
