@@ -7,6 +7,7 @@ import ProcessSection from "@/components/process-section"
 import TeamSection from "@/components/team-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
+import { Chatbot } from "@/components/chatbot"
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
       <TeamSection />
       <ContactSection />
       <Footer />
+      <Chatbot />
     </main>
   )
 }
