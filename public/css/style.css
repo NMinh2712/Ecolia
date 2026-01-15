@@ -1,0 +1,503 @@
+/* MẢNH - Healing & Emotional Jewelry Website */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Healing Color Palette */
+  --primary-bg-start: #faf7f3;
+  --primary-bg-mid: #f3eee9;
+  --primary-bg-end: #ece6df;
+
+  --beige-light: #f5efe6;
+  --stone-gray: #b8b1a9;
+  --healing-brown: #8c6a4a;
+  --energy-gold: #c6a25d;
+
+  --text-primary: #3a3a3a;
+  --text-secondary: #6b6b6b;
+  --text-light: #9a9a9a;
+
+  /* Typography */
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+
+  /* Transitions */
+  --transition: all 0.3s ease-in-out;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: linear-gradient(180deg, var(--primary-bg-start) 0%, var(--primary-bg-mid) 50%, var(--primary-bg-end) 100%);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Background decoration - floating blur circles */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::before {
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  right: -100px;
+  background: radial-gradient(circle, var(--healing-brown), transparent);
+}
+
+body::after {
+  width: 300px;
+  height: 300px;
+  bottom: -50px;
+  left: -50px;
+  background: radial-gradient(circle, var(--energy-gold), transparent);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: 3.5rem;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+h3 {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Navigation */
+header {
+  position: relative;
+  z-index: 10;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--healing-brown);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.logo:hover {
+  color: var(--energy-gold);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-xl);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--energy-gold);
+  transition: var(--transition);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  z-index: 5;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  gap: var(--spacing-xl);
+}
+
+.hero h1 {
+  color: var(--healing-brown);
+  font-size: 4rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.hero p {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-secondary);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Buttons */
+.btn {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--energy-gold);
+  color: white;
+  box-shadow: 0 8px 20px rgba(198, 162, 93, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(198, 162, 93, 0.5);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--healing-brown);
+  border: 2px solid var(--healing-brown);
+}
+
+.btn-secondary:hover {
+  background: var(--healing-brown);
+  color: white;
+}
+
+/* Forms */
+.form-container {
+  position: relative;
+  z-index: 5;
+  max-width: 600px;
+  margin: var(--spacing-2xl) auto;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--stone-gray);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: var(--transition);
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--energy-gold);
+  box-shadow: 0 0 0 3px rgba(198, 162, 93, 0.1);
+}
+
+/* Step indicator */
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-2xl);
+  gap: var(--spacing-md);
+}
+
+.step {
+  flex: 1;
+  height: 4px;
+  background: var(--stone-gray);
+  border-radius: 2px;
+  opacity: 0.3;
+  transition: var(--transition);
+}
+
+.step.active {
+  background: var(--energy-gold);
+  opacity: 1;
+}
+
+.step.completed {
+  background: var(--healing-brown);
+  opacity: 0.8;
+}
+
+/* Color selector */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.color-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+.color-option.selected {
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--text-primary);
+}
+
+/* Result page */
+.result-container {
+  position: relative;
+  z-index: 5;
+  max-width: 700px;
+  margin: var(--spacing-2xl) auto;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.energy-card {
+  background: linear-gradient(135deg, var(--beige-light), var(--primary-bg-end));
+  padding: var(--spacing-xl);
+  border-radius: 15px;
+  margin: var(--spacing-lg) 0;
+  border-left: 4px solid var(--energy-gold);
+}
+
+.energy-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--stone-gray);
+  margin-bottom: var(--spacing-sm);
+}
+
+.energy-text {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  color: var(--healing-brown);
+  margin-bottom: var(--spacing-md);
+}
+
+.stones-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.stone-tag {
+  background: var(--healing-brown);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Product page */
+.product-container {
+  position: relative;
+  z-index: 5;
+  max-width: 800px;
+  margin: var(--spacing-2xl) auto;
+  padding: var(--spacing-xl);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--beige-light), var(--primary-bg-mid));
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  color: var(--stone-gray);
+  font-size: 1.5rem;
+}
+
+.product-info h2 {
+  color: var(--healing-brown);
+}
+
+.product-price {
+  font-size: 2rem;
+  color: var(--energy-gold);
+  font-weight: 700;
+  margin: var(--spacing-md) 0;
+}
+
+/* About page */
+.about-container {
+  position: relative;
+  z-index: 5;
+  max-width: 800px;
+  margin: var(--spacing-2xl) auto;
+  padding: var(--spacing-xl);
+}
+
+.about-section {
+  margin-bottom: var(--spacing-2xl);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.about-section p {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Footer */
+footer {
+  position: relative;
+  z-index: 5;
+  margin-top: var(--spacing-2xl);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  text-align: center;
+  border-top: 1px solid rgba(184, 177, 169, 0.3);
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  .hero {
+    min-height: 60vh;
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  nav ul {
+    gap: var(--spacing-lg);
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

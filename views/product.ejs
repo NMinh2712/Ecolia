@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= product.title %> - MẢNH</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">MẢNH</a>
+    <nav>
+      <ul>
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="/ai-reading">Tìm mảnh ghép</a></li>
+        <li><a href="/about">Về chúng tôi</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section style="position: relative; z-index: 5; min-height: 100vh; padding: 3rem 1.5rem; display: flex; align-items: center;">
+      <div class="product-container fade-in">
+        <!-- Back Button -->
+        <a href="/" style="color: #8c6a4a; text-decoration: none; font-weight: 500; margin-bottom: 2rem; display: inline-block;">← Quay lại</a>
+
+        <!-- Product Grid -->
+        <div class="product-grid">
+          <!-- Product Image -->
+          <div class="product-image">
+            Bracelet <%= product.title %>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <h2 style="color: #8c6a4a;"><%= product.title %></h2>
+
+            <div class="energy-card" style="margin: 1.5rem 0; border-left: 4px solid #c6a25d;">
+              <div class="energy-label">Năng lượng</div>
+              <div class="energy-text" style="font-size: 1.5rem;"><%= product.energy %></div>
+            </div>
+
+            <p style="color: #6b6b6b; font-size: 1.05rem; margin: 1.5rem 0;">
+              <%= product.description %>
+            </p>
+
+            <!-- Stones -->
+            <div style="margin: 1.5rem 0;">
+              <h4 style="color: #8c6a4a; margin-bottom: 0.75rem;">Các viên đá</h4>
+              <div class="stones-list">
+                <% product.stones.forEach(stone => { %>
+                  <span class="stone-tag"><%= stone %></span>
+                <% }) %>
+              </div>
+            </div>
+
+            <!-- Price -->
+            <div style="margin: 2rem 0; padding: 2rem 0; border-top: 1px solid rgba(184, 177, 169, 0.3); border-bottom: 1px solid rgba(184, 177, 169, 0.3);">
+              <p style="color: #9a9a9a; font-size: 0.9rem; margin-bottom: 0.5rem;">Giá</p>
+              <div class="product-price"><%= product.price %>đ</div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div style="display: flex; gap: 1rem; flex-direction: column;">
+              <button class="btn btn-primary" style="width: 100%; font-size: 1.05rem;" onclick="alert('Chức năng đặt hàng sẽ sớm được cập nhật')">Đặt hàng chiếc vòng này</button>
+              <a href="/ai-reading" class="btn btn-secondary" style="text-align: center;">Thực hiện AI Reading khác</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Description Section -->
+        <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(184, 177, 169, 0.3);">
+          <h3 style="color: #8c6a4a; margin-bottom: 1.5rem;">Về chiếc vòng này</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <div>
+              <h4 style="color: #8c6a4a; margin-bottom: 0.75rem;">Ý nghĩa</h4>
+              <p style="color: #6b6b6b; line-height: 1.8;">
+                Mỗi viên đá được chọn dựa trên năng lượng và cảm xúc của bạn. Không vì phong thủy, mà vì ý nghĩa chữa lành nó mang lại.
+              </p>
+            </div>
+            <div>
+              <h4 style="color: #8c6a4a; margin-bottom: 0.75rem;">Chất liệu</h4>
+              <p style="color: #6b6b6b; line-height: 1.8;">
+                Vòng tay được làm bằng dây tơ lụa cao cấp và các viên đá tự nhiên. Thiết kế tối giản để bạn có thể mặc mỗi ngày.
+              </p>
+            </div>
+            <div>
+              <h4 style="color: #8c6a4a; margin-bottom: 0.75rem;">Chăm sóc</h4>
+              <p style="color: #6b6b6b; line-height: 1.8;">
+                Tránh tiếp xúc với nước kéo dài. Giữ nơi khô ráo. Làm sạch nhẹ bằng khăn mềm. Giữ gìn như một mảnh ghép của tâm hồn.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Products or Next Steps -->
+        <div style="margin-top: 4rem; padding: 2rem; background: linear-gradient(135deg, rgba(198, 162, 93, 0.1), rgba(140, 106, 74, 0.05)); border-radius: 15px; text-align: center;">
+          <h3 style="color: #8c6a4a; margin-bottom: 1rem;">Sẵn sàng tìm mảnh ghép khác?</h3>
+          <p style="color: #6b6b6b; margin-bottom: 1.5rem;">Hãy thực hiện AI Reading lại để khám phá thêm những chiếc vòng khác.</p>
+          <a href="/ai-reading" class="btn btn-primary">Thực hiện AI Reading lại</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 MẢNH. Mảnh ghép của riêng bạn. Với yêu thương từ Việt Nam.</p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
