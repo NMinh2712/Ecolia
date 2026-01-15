@@ -4,31 +4,33 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  /* MẢNH Healing Palette */
+  --background: #faf7f3;
+  --background-secondary: #f3eee9;
+  --background-tertiary: #ece6df;
+
+  --foreground: #3a3a3a;
+  --foreground-secondary: #6b6b6b;
+
+  --stone-gray: #b8b1a9;
+  --healing-brown: #8c6a4a;
+  --energy-gold: #c6a25d;
+
+  --accent-pink: #e8d5d1;
+  --accent-cream: #f9f5f1;
+
+  --card: #ffffff;
+  --card-foreground: #3a3a3a;
+
+  --border: #e0d9d1;
+  --input: #ffffff;
+
+  --radius: 0.625rem;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -39,183 +41,90 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-/* Updated color system for better text contrast and readability */
-@theme inline {
-  /* Updated ECOLIA Brand Colors to match exact specifications */
-  --color-primary: #2f8f4a;
-  --color-accent: #9bc86b;
-  --color-earth: #8b5a2b;
-  --color-cream: #fbf7f0;
-  --color-text: #1f2d28;
-  --color-muted: #6b7280;
-  --color-danger: #e05a3f;
+.dark {
+  --background: #2a2420;
+  --background-secondary: #3a3530;
+  --background-tertiary: #4a4540;
 
-  /* Updated semantic design tokens for better readability */
-  --color-background: #fbf7f0;
-  --color-foreground: #1f2d28;
-  --color-card: #ffffff;
-  --color-card-foreground: #1f2d28;
-  --color-popover: #ffffff;
-  --color-popover-foreground: #1f2d28;
-  --color-primary: #2f8f4a;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #f8f9fa;
-  --color-secondary-foreground: #1f2d28;
-  --color-muted: #f8f9fa;
-  --color-muted-foreground: #6b7280;
-  --color-accent: #9bc86b;
-  --color-accent-foreground: #1f2d28;
-  --color-destructive: #e05a3f;
-  --color-destructive-foreground: #ffffff;
-  --color-border: #e5e7eb;
-  --color-input: #ffffff;
-  --color-ring: #2f8f4a;
-  --color-chart-1: #2f8f4a;
-  --color-chart-2: #9bc86b;
-  --color-chart-3: #8b5a2b;
-  --color-chart-4: #6b7280;
-  --color-chart-5: #e05a3f;
+  --foreground: #f5f1ed;
+  --foreground-secondary: #d0ccca;
+
+  --stone-gray: #9d9690;
+  --healing-brown: #d4af85;
+  --energy-gold: #e5c87a;
+
+  --accent-pink: #8b6b65;
+  --accent-cream: #3a3530;
+
+  --card: #3a3530;
+  --card-foreground: #f5f1ed;
+
+  --border: #5a5550;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback";
+  --font-serif: "Georgia", "Garamond", serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-stone-gray: var(--stone-gray);
+  --color-healing-brown: var(--healing-brown);
+  --color-energy-gold: var(--energy-gold);
+  --color-accent-pink: var(--accent-pink);
+  --color-accent-cream: var(--accent-cream);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: #fbf7f0;
-  --color-sidebar-foreground: #1f2d28;
-  --color-sidebar-primary: #2f8f4a;
-  --color-sidebar-primary-foreground: #ffffff;
-  --color-sidebar-accent: #f8f9fa;
-  --color-sidebar-accent-foreground: #1f2d28;
-  --color-sidebar-border: #e5e7eb;
-  --color-sidebar-ring: #2f8f4a;
-
-  /* Updated font system to use Inter as specified */
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
-}
-
-/* Updated custom styles for better visual hierarchy */
-.hero-gradient {
-  background: linear-gradient(135deg, #fbf7f0 0%, rgba(155, 200, 107, 0.08) 100%);
-}
-
-.texture-overlay {
-  position: relative;
-}
-
-.texture-overlay::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("/placeholder.svg?height=400&width=800");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.03;
-  pointer-events: none;
-}
-
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(47, 143, 74, 0.1), 0 10px 10px -5px rgba(47, 143, 74, 0.04);
-}
-
-/* Enhanced accessibility and focus states */
-.focus-visible:focus-visible {
-  outline: 2px solid #2f8f4a;
-  outline-offset: 2px;
-}
-
-/* Improved animation utilities */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up {
-  animation: fade-up 0.6s ease-out;
-}
-
-/* Enhanced responsive typography for better readability */
-@media (max-width: 640px) {
-  .hero-title {
-    font-size: 2.25rem;
-    line-height: 1.2;
-    font-weight: 700;
-  }
-  .section-title {
-    font-size: 1.875rem;
-    line-height: 1.3;
-  }
-}
-
-@media (min-width: 641px) {
-  .hero-title {
-    font-size: 2.75rem;
-    line-height: 1.2;
-    font-weight: 700;
-  }
-  .section-title {
-    font-size: 2.25rem;
-    line-height: 1.3;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-title {
-    font-size: 3.25rem;
-    line-height: 1.1;
-    font-weight: 700;
-  }
-  .section-title {
-    font-size: 2.5rem;
-    line-height: 1.2;
-  }
-}
-
-/* Added utility classes for consistent spacing and typography */
-.text-readable {
-  line-height: 1.6;
-  color: #1f2d28;
-}
-
-.text-muted-readable {
-  line-height: 1.5;
-  color: #6b7280;
-}
-
-.text-high-contrast {
-  color: #1f2d28;
-  font-weight: 500;
-}
-
-.section-spacing {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
-@media (max-width: 768px) {
-  .section-spacing {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-}
-
-/* Added smooth scrolling for better navigation experience */
-html {
-  scroll-behavior: smooth;
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
@@ -224,6 +133,91 @@ html {
   }
   body {
     @apply bg-background text-foreground font-sans;
-    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-normal;
+  }
+}
+
+/* MẢNH Custom Styles */
+@layer components {
+  .gradient-background {
+    @apply bg-gradient-to-b from-background via-background-secondary to-background-tertiary;
+  }
+
+  .healing-card {
+    @apply bg-white rounded-lg shadow-sm border border-border hover:shadow-md transition-all duration-300;
+  }
+
+  .cta-button {
+    @apply px-6 py-3 rounded-full font-medium text-white bg-healing-brown hover:bg-amber-800 transition-colors duration-300;
+  }
+
+  .cta-button-gold {
+    @apply px-6 py-3 rounded-full font-medium text-white bg-energy-gold hover:opacity-90 transition-all duration-300;
+  }
+
+  .blur-circle {
+    @apply absolute rounded-full blur-3xl opacity-5 pointer-events-none;
+  }
+
+  .step-progress {
+    @apply flex items-center justify-center gap-2;
+  }
+
+  .step-dot {
+    @apply w-2 h-2 rounded-full bg-stone-gray;
+  }
+
+  .step-dot-active {
+    @apply w-3 h-3 bg-energy-gold scale-125;
+  }
+
+  /* Adding animations for AI flow */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
