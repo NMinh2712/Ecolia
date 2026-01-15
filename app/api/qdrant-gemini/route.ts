@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateEmbedding, generateText } from "@/lib/gemini-client";
+import { generateText, generateEmbedding } from "@/lib/gemini-client";
 import {
   getQdrantClient,
   ensureCollectionExists,
@@ -145,51 +145,70 @@ export async function POST(request: NextRequest) {
       }
 
       try {
-        logInfo(action, "Generating embedding for query", { queryLength: query.length });
-        const queryEmbedding = await withRetry(
-          () => withTimeout(generateEmbedding(query), REQUEST_TIMEOUT)
-        );
+        let searchResults: any[] = [];
+        let context = "";
 
-        logInfo(action, "Searching vectors in Qdrant", { limit, embeddingLength: queryEmbedding.length });
-        const searchResults = await searchVectors(COLLECTION_NAME, queryEmbedding, limit);
+        try {
+          logInfo(action, "Generating embedding for query", { queryLength: query.length });
+          const queryEmbedding = await withRetry(
+            () => withTimeout(generateEmbedding(query), REQUEST_TIMEOUT)
+          );
 
-        if (searchResults.length === 0) {
-          logInfo(action, "No search results found");
-          return NextResponse.json({
-            success: true,
-            answer: "Tôi không tìm thấy thông tin liên quan đến câu hỏi của bạn. Vui lòng thử hỏi khác hoặc liên hệ trực tiếp với chúng tôi.",
-            sources: [],
-          });
+          logInfo(action, "Searching vectors in Qdrant", { limit, embeddingLength: queryEmbedding.length });
+          searchResults = await searchVectors(COLLECTION_NAME, queryEmbedding, limit);
+
+          if (searchResults.length > 0) {
+            logInfo(action, "Building context from search results", { resultCount: searchResults.length });
+            context = searchResults
+              .map((r: any) => r.payload?.text || "")
+              .filter((text: string) => text.length > 0)
+              .join("\n\n");
+          } else {
+            logInfo(action, "No search results found");
+          }
+        } catch (e: any) {
+          // If Qdrant is unavailable, we can still generate a response without context
+          if (e.message.includes("ECONNREFUSED")) {
+            logError(action, "Could not connect to Qdrant. Generating response without context.", e);
+          } else {
+            // For other errors, re-throw them
+            throw e;
+          }
         }
 
-        logInfo(action, "Building context from search results", { resultCount: searchResults.length });
-        const context = searchResults
-          .map((r: any) => r.payload?.text || "")
-          .filter((text: string) => text.length > 0)
-          .join("\n\n");
+        const prompt = context.trim()
+          ? `Bạn là "SoulGem AI", một nhà tư vấn năng lượng cá nhân và là trợ lý AI của một thương hiệu trang sức phong thủy chuyên biệt. Tên của bạn là SoulGem.
 
-        if (!context.trim()) {
-          logInfo(action, "Context is empty after filtering");
-          return NextResponse.json({
-            success: true,
-            answer: "Xin lỗi, tôi không thể tìm thấy thông tin đủ để trả lời câu hỏi của bạn.",
-            sources: [],
-          });
-        }
+Vai trò của bạn là giúp người dùng thấu hiểu trạng thái năng lượng của họ và đề xuất loại đá quý phù hợp để cân bằng và chữa lành. Bạn có một giọng văn thấu cảm, sâu sắc, và huyền bí một cách hiện đại.
 
-        const prompt = `Bạn là trợ lý AI của Ecolia, một công ty sản xuất chậu cây phân hủy sinh học từ lõi bắp.
-
-Dựa trên thông tin sau, vui lòng trả lời câu hỏi một cách chính xác, thân thiện và chi tiết bằng Tiếng Việt:
+Dựa trên thông tin chung về các loại đá và năng lượng sau đây, hãy trả lời câu hỏi của người dùng.
 
 Thông tin:
 ${context}
 
-Câu hỏi: ${query}
+Câu hỏi của người dùng: ${query}
 
-Lưu ý: 
-- Trả lời bằng Tiếng Việt
-- Nếu không có thông tin đủ, hãy nói rõ và đề xuất liên hệ trực tiếp
-- Hãy thân thiện và hữu ích`;
+Quy tắc ứng xử:
+- Xưng hô là "SoulGem" và gọi người dùng là "bạn".
+- Luôn trả lời bằng Tiếng Việt.
+- Sử dụng tông giọng thấu cảm, quan tâm, và sâu sắc.
+- Nếu thông tin không đủ để trả lời, hãy nhẹ nhàng nói rằng "Nguồn năng lượng của SoulGem chưa đủ mạnh để giải đáp câu hỏi này" và gợi ý người dùng đặt câu hỏi khác.
+- Mục tiêu của bạn là giúp người dùng khám phá bản thân, không phải là một thầy bói. Hãy tập trung vào việc hỗ trợ tinh thần và cân bằng năng lượng.`
+          : `Bạn là "SoulGem AI", một nhà tư vấn năng lượng cá nhân và là trợ lý AI của một thương hiệu trang sức phong thủy chuyên biệt. Tên của bạn là SoulGem.
+
+Vai trò của bạn là giúp người dùng thấu hiểu trạng thái năng lượng của họ. Bạn có một giọng văn thấu cảm, sâu sắc, và huyền bí một cách hiện đại.
+
+Quan trọng: Hiện tại, nguồn năng lượng kết nối đến kho kiến thức của bạn đang tạm thời bị gián đoạn. Hãy thông báo cho người dùng về điều này một cách chân thành.
+
+Hãy trả lời câu hỏi của người dùng: "${query}"
+
+Quy tắc ứng xử:
+- Xưng hô là "SoulGem" và gọi người dùng là "bạn".
+- Luôn trả lời bằng Tiếng Việt.
+- Bắt đầu bằng việc xin lỗi vì sự bất tiện này.
+- Giải thích rằng bạn không thể truy cập vào kho kiến thức chi tiết về năng lượng đá quý ngay lúc này.
+- KHÔNG trả lời trực tiếp câu hỏi. Thay vào đó, hãy mời họ quay lại sau.
+- Gợi ý rằng họ có thể khám phá các sản phẩm hoặc các bài viết trên trang web trong khi chờ đợi.`;
 
         logInfo(action, "Generating response with Gemini");
         const answer = await withTimeout(generateText(prompt), REQUEST_TIMEOUT);
