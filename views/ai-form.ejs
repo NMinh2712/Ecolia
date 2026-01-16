@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tìm mảnh ghép - MẢNH</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">MẢNH</a>
+    <nav>
+      <ul>
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="/ai-reading">Tìm mảnh ghép</a></li>
+        <li><a href="/about">Về chúng tôi</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section style="position: relative; z-index: 5; min-height: 100vh; padding: 2rem 1.5rem;">
+      <!-- Form Container -->
+      <div class="form-container fade-in">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: #8c6a4a;">AI Reading - Tìm mảnh ghép của bạn</h2>
+
+        <!-- Progress Bar -->
+        <div class="step-indicator" style="margin-bottom: 2rem;">
+          <div class="step active"></div>
+          <div class="step"></div>
+          <div class="step"></div>
+          <div class="step"></div>
+        </div>
+
+        <!-- AI Form -->
+        <form id="ai-form">
+          <!-- STEP 1: Emotion -->
+          <div data-step="1">
+            <div class="form-group">
+              <label style="font-size: 1.15rem; text-align: center; display: block; margin-bottom: 1.5rem;">
+                Gần đây bạn cảm thấy thiếu điều gì nhất?
+              </label>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <!-- Stress Option -->
+                <div style="position: relative;">
+                  <input type="radio" id="emotion-stress" name="emotion" value="stress" style="display: none;">
+                  <label for="emotion-stress" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; transition: all 0.3s ease-in-out; font-weight: 500;">
+                    Áp lực
+                  </label>
+                </div>
+
+                <!-- Lonely Option -->
+                <div style="position: relative;">
+                  <input type="radio" id="emotion-lonely" name="emotion" value="lonely" style="display: none;">
+                  <label for="emotion-lonely" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; transition: all 0.3s ease-in-out; font-weight: 500;">
+                    Cô đơn
+                  </label>
+                </div>
+
+                <!-- Lost Option -->
+                <div style="position: relative;">
+                  <input type="radio" id="emotion-lost" name="emotion" value="lost" style="display: none;">
+                  <label for="emotion-lost" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; transition: all 0.3s ease-in-out; font-weight: 500;">
+                    Mất hướng
+                  </label>
+                </div>
+
+                <!-- Balance Option -->
+                <div style="position: relative;">
+                  <input type="radio" id="emotion-balance" name="emotion" value="balance" style="display: none;">
+                  <label for="emotion-balance" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; transition: all 0.3s ease-in-out; font-weight: 500;">
+                    Cần cân bằng
+                  </label>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" style="width: 100%;" onclick="nextStep(2)">Tiếp tục</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Color -->
+          <div data-step="2" style="display: none;">
+            <div class="form-group">
+              <label style="font-size: 1.15rem; text-align: center; display: block; margin-bottom: 1.5rem;">
+                Chọn màu sắc hút bạn hôm nay
+              </label>
+
+              <div class="color-grid" style="margin-bottom: 1.5rem;">
+                <input type="hidden" id="color-input" name="color" value="">
+
+                <button type="button" class="color-option" data-color="brown" style="background: #8c6a4a;"></button>
+                <button type="button" class="color-option" data-color="gold" style="background: #c6a25d;"></button>
+                <button type="button" class="color-option" data-color="pink" style="background: #d4a5a5;"></button>
+                <button type="button" class="color-option" data-color="blue" style="background: #6b9db5;"></button>
+                <button type="button" class="color-option" data-color="white" style="background: #e8e4de;"></button>
+                <button type="button" class="color-option" data-color="purple" style="background: #8b7ba8;"></button>
+                <button type="button" class="color-option" data-color="green" style="background: #7a9d6f;"></button>
+                <button type="button" class="color-option" data-color="gray" style="background: #9a9a9a;"></button>
+              </div>
+
+              <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 0.75rem;" onclick="nextStep(3)">Tiếp tục</button>
+              <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="nextStep(1)">Quay lại</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Intention -->
+          <div data-step="3" style="display: none;">
+            <div class="form-group">
+              <label style="font-size: 1.15rem; text-align: center; display: block; margin-bottom: 1.5rem;">
+                Bạn mong muốn điều gì trong 3 tháng tới?
+              </label>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                  <input type="radio" id="intention-peace" name="intention" value="peace" style="display: none;">
+                  <label for="intention-peace" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; font-weight: 500;">
+                    Bình an
+                  </label>
+                </div>
+
+                <div>
+                  <input type="radio" id="intention-work" name="intention" value="work" style="display: none;">
+                  <label for="intention-work" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; font-weight: 500;">
+                    Công việc
+                  </label>
+                </div>
+
+                <div>
+                  <input type="radio" id="intention-love" name="intention" value="love" style="display: none;">
+                  <label for="intention-love" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; font-weight: 500;">
+                    Tình cảm
+                  </label>
+                </div>
+
+                <div>
+                  <input type="radio" id="intention-heal" name="intention" value="heal" style="display: none;">
+                  <label for="intention-heal" style="display: block; padding: 1.25rem; text-align: center; background: rgba(255, 255, 255, 0.8); border: 2px solid #b8b1a9; border-radius: 12px; cursor: pointer; font-weight: 500;">
+                    Chữa lành
+                  </label>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" style="width: 100%; margin-bottom: 0.75rem;" onclick="nextStep(4)">Tiếp tục</button>
+              <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="nextStep(2)">Quay lại</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: Personal Info -->
+          <div data-step="4" style="display: none;">
+            <div class="form-group">
+              <label style="font-size: 1.15rem; text-align: center; display: block; margin-bottom: 1.5rem;">
+                Một chút thông tin về bạn
+              </label>
+
+              <div class="form-group">
+                <label for="birthDate">Ngày sinh của bạn</label>
+                <input type="date" id="birthDate" name="birthDate" required>
+              </div>
+
+              <div class="form-group">
+                <label for="zodiac">Cung hoàng đạo (tùy chọn)</label>
+                <select id="zodiac" name="zodiac">
+                  <option value="">-- Chọn cung hoàng đạo --</option>
+                  <option value="aries">Bạch Dương</option>
+                  <option value="taurus">Kim Ngưu</option>
+                  <option value="gemini">Song Tử</option>
+                  <option value="cancer">巨蟹</option>
+                  <option value="leo">Sư Tử</option>
+                  <option value="virgo">Xử Nữ</option>
+                  <option value="libra">Thiên Bình</option>
+                  <option value="scorpio">Bò Cạp</option>
+                  <option value="sagittarius">Nhân Mã</option>
+                  <option value="capricorn">Ma Kết</option>
+                  <option value="aquarius">Bình Vưỡng</option>
+                  <option value="pisces">Song Cá</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 0.75rem;">Xem kết quả AI Reading</button>
+              <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="nextStep(3)">Quay lại</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 MẢNH. Mảnh ghép của riêng bạn. Với yêu thương từ Việt Nam.</p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // Radio button and color option styling
+    document.addEventListener("DOMContentLoaded", () => {
+      // Radio buttons styling
+      document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+        radio.addEventListener("change", function () {
+          const labels = this.name === "emotion" ? document.querySelectorAll(`input[name="emotion"] + label`) : 
+                         this.name === "intention" ? document.querySelectorAll(`input[name="intention"] + label`) : [];
+          
+          labels.forEach(label => {
+            label.style.backgroundColor = "#f5f5f5"
+            label.style.borderColor = "#b8b1a9"
+            label.style.color = "#3a3a3a"
+          })
+
+          const selectedLabel = this.nextElementSibling
+          if (selectedLabel) {
+            selectedLabel.style.backgroundColor = "#c6a25d"
+            selectedLabel.style.borderColor = "#c6a25d"
+            selectedLabel.style.color = "white"
+          }
+        })
+      })
+
+      // Color option button styling
+      document.querySelectorAll(".color-option").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault()
+          document.querySelectorAll(".color-option").forEach(b => b.classList.remove("selected"))
+          this.classList.add("selected")
+          document.getElementById("color-input").value = this.getAttribute("data-color")
+        })
+      })
+    })
+  </script>
+</body>
+</html>
