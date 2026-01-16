@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,9 +26,12 @@ export function Chatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const windowRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
+  // Load messages from localStorage
   useEffect(() => {
-    // Load messages from localStorage on mount
     const savedMessages = localStorage.getItem("chatbot_history");
     if (savedMessages) {
       try {
@@ -41,40 +43,71 @@ export function Chatbot() {
         setMessages(messagesWithDates);
       } catch (error) {
         console.error("Failed to load chat history:", error);
-        // If loading fails, start with a fresh welcome message
-        setMessages([
-          {
-            id: "init",
-            text: "Welcome to Ecolia! How can I help you today? Feel free to ask about our sustainable products.",
-            sender: "bot",
-            timestamp: new Date(),
-          },
-        ]);
+        setInitialMessage();
       }
     } else {
-      // For new users, set the initial welcome message
-      setMessages([
-        {
-          id: "init",
-          text: "Welcome to Ecolia! How can I help you today? Feel free to ask about our sustainable products.",
-          sender: "bot",
-          timestamp: new Date(),
-        },
-      ]);
+      setInitialMessage();
     }
   }, []);
-  
-  // Save messages to localStorage whenever they change
+
+  // Save messages whenever they change
   useEffect(() => {
     localStorage.setItem("chatbot_history", JSON.stringify(messages));
   }, [messages]);
 
-  // Auto scroll to latest message
+  // Auto-scroll to bottom
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  const setInitialMessage = () => {
+    const welcomeMsg: Message = {
+      id: "init",
+      text: "Welcome to Ecolia! How can I help you today? Feel free to ask about our sustainable products.",
+      sender: "bot",
+      timestamp: new Date(),
+    };
+    setMessages([welcomeMsg]);
+  };
+
+  // Drag functionality
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest("button, input")) return;
+    setIsDragging(true);
+    setDragOffset({
+      x: e.clientX - (windowRef.current?.offsetLeft || 0),
+      y: e.clientY - (windowRef.current?.offsetTop || 0),
+    });
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging || !windowRef.current) return;
+      const newLeft = e.clientX - dragOffset.x;
+      const newTop = e.clientY - dragOffset.y;
+
+      const maxX = window.innerWidth - windowRef.current.offsetWidth;
+      const maxY = window.innerHeight - windowRef.current.offsetHeight;
+
+      windowRef.current.style.left = `${Math.max(0, Math.min(newLeft, maxX))}px`;
+      windowRef.current.style.top = `${Math.max(0, Math.min(newTop, maxY))}px`;
+      windowRef.current.style.right = "auto";
+      windowRef.current.style.bottom = "auto";
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [isDragging, dragOffset]);
 
   const handleSendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -91,17 +124,17 @@ export function Chatbot() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/qdrant-gemini", {
+      const res = await fetch("/api/qdrant-gemini", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "search-and-generate",
-          query: input,
+          query: userMessage.text,
           limit: 3,
         }),
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -115,8 +148,8 @@ export function Chatbot() {
         })),
         error: data.success ? undefined : data.error || "Unknown error",
       };
-      setMessages((prev) => [...prev, botMessage]);
 
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error("Chat API error:", error);
       const errorMessage: Message = {
@@ -133,14 +166,8 @@ export function Chatbot() {
   };
 
   const resetChat = () => {
-    const initialMessage = {
-      id: "init-reset",
-      text: "Welcome to Ecolia! How can I help you today? Feel free to ask about our sustainable products.",
-      sender: "bot",
-      timestamp: new Date(),
-    };
-    setMessages([initialMessage]);
-    localStorage.setItem("chatbot_history", JSON.stringify([initialMessage]));
+    setInitialMessage();
+    localStorage.setItem("chatbot_history", JSON.stringify(messages));
   };
 
   return (
@@ -158,95 +185,159 @@ export function Chatbot() {
       )}
 
       {isOpen && (
-        <Card className="fixed bottom-20 right-6 w-[380px] h-[calc(100vh-100px)] max-h-[600px] shadow-2xl flex flex-col z-50 bg-gray-50 rounded-lg">
-          <div className="bg-gradient-to-r from-emerald-600 to-green-600 text-white p-4 rounded-t-lg flex justify-between items-center">
-            <div>
-              <h3 className="font-bold text-lg">Ecolia Assistant</h3>
-              <p className="text-xs text-green-100 flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span>
-                Online
-              </p>
+        <div
+          ref={windowRef}
+          className="fixed z-50"
+          style={{
+            width: "380px",
+            height: "600px",
+            maxHeight: "calc(100vh - 80px)",
+            bottom: "80px",
+            right: "24px",
+          }}
+        >
+          <Card className="h-full w-full shadow-2xl flex flex-col bg-gray-50 rounded-lg overflow-hidden">
+            {/* Header */}
+            <div
+              className="bg-gradient-to-r from-emerald-600 to-green-600 text-white p-4 flex justify-between items-center cursor-grab active:cursor-grabbing"
+              onMouseDown={handleMouseDown}
+            >
+              <div>
+                <h3 className="font-bold text-lg">Ecolia Assistant</h3>
+                <p className="text-xs text-green-100 flex items-center gap-1.5">
+                  <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span>
+                  Online
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={resetChat}
+                  className="hover:bg-green-700 p-1.5 rounded-full transition"
+                  title="Reset chat"
+                >
+                  🔄
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="hover:bg-green-700 p-1.5 rounded-full transition"
+                  aria-label="Close chat"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <button onClick={resetChat} className="hover:bg-green-700 p-1 rounded-full transition" title="Reset chat">
-                🔄
-              </button>
-              <button onClick={() => setIsOpen(false)} className="hover:bg-green-700 p-1 rounded-full transition" aria-label="Close chat">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
 
-          <ScrollArea className="flex-1 p-4 overflow-y-auto">
-            <div className="space-y-5 pr-2">
-              {messages.map((message) => (
-                <div key={message.id} className="space-y-2">
-                  <div className={`flex items-end gap-2 ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
-                    <div className={`max-w-md px-4 py-2.5 rounded-2xl ${message.sender === "user" ? "bg-emerald-600 text-white rounded-br-none" : "bg-white text-gray-800 rounded-bl-none border"}`}>
-                      <p className="text-sm whitespace-pre-wrap">{message.text}</p>
-                      <span className="text-xs opacity-60 mt-1.5 block text-right">{message.timestamp.toLocaleTimeString("en-US", { hour: 'numeric', minute: '2-digit' })}</span>
+            {/* Messages */}
+            <ScrollArea className="flex-1 p-4">
+              <div className="space-y-5 pr-2">
+                {messages.map((message) => (
+                  <div key={message.id} className="space-y-1">
+                    <div
+                      className={`flex items-end gap-2 ${
+                        message.sender === "user" ? "justify-end" : "justify-start"
+                      }`}
+                    >
+                      <div
+                        className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm ${
+                          message.sender === "user"
+                            ? "bg-emerald-600 text-white rounded-br-none"
+                            : "bg-white text-gray-800 rounded-bl-none border shadow-sm"
+                        }`}
+                      >
+                        <p className="whitespace-pre-wrap">{message.text}</p>
+                        <span className="text-xs opacity-60 mt-1.5 block text-right">
+                          {message.timestamp.toLocaleTimeString("en-US", {
+                            hour: "numeric",
+                            minute: "2-digit",
+                          })}
+                        </span>
+                      </div>
+                    </div>
+
+                    {message.sources && message.sources.length > 0 && (
+                      <div className="flex justify-start pl-3">
+                        <details className="text-xs text-gray-500 cursor-pointer group">
+                          <summary className="group-hover:text-gray-800 font-medium flex items-center gap-1">
+                            📚 Sources ({message.sources.length})
+                          </summary>
+                          <div className="mt-2 space-y-3 ml-4 py-2 px-3 bg-gray-100 rounded-md text-gray-700 max-w-xs border">
+                            {message.sources.map((source, idx) => (
+                              <div key={idx} className="border-l-2 border-emerald-400 pl-3">
+                                <p className="text-xs font-semibold text-emerald-800">
+                                  {source.category || "Source"}
+                                </p>
+                                <p className="text-xs line-clamp-3 mt-1">{source.text}</p>
+                                {source.score && (
+                                  <p className="text-xs text-gray-500 mt-1 font-mono">
+                                    Relevance: {(source.score * 100).toFixed(0)}%
+                                  </p>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </details>
+                      </div>
+                    )}
+
+                    {message.error && (
+                      <div className="flex justify-start pl-3 pt-1">
+                        <Alert variant="destructive" className="max-w-md bg-red-50 border-red-200">
+                          <AlertCircle className="h-4 w-4" />
+                          <AlertDescription className="text-xs text-red-800">
+                            {message.error}
+                          </AlertDescription>
+                        </Alert>
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {loading && (
+                  <div className="flex justify-start">
+                    <div className="bg-white px-4 py-3 rounded-2xl rounded-bl-none flex items-center gap-2 border shadow-sm">
+                      <div className="flex gap-1.5">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.1s]"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                      </div>
                     </div>
                   </div>
+                )}
 
-                  {message.sources && message.sources.length > 0 && (
-                    <div className="flex justify-start pl-3 pt-1">
-                      <details className="text-xs text-gray-500 cursor-pointer group">
-                        <summary className="group-hover:text-gray-800 font-medium flex items-center gap-1">
-                          📚 Sources ({message.sources.length})
-                        </summary>
-                        <div className="mt-2 space-y-2 ml-4 py-2 px-3 bg-gray-100 rounded-md text-gray-700 max-w-xs border">
-                          {message.sources.map((source, idx) => (
-                            <div key={idx} className="border-l-2 border-emerald-400 pl-2">
-                              <p className="text-xs font-semibold text-emerald-800">{source.category || "Source"}</p>
-                              <p className="text-xs line-clamp-3 mt-1">{source.text}</p>
-                              {source.score && <p className="text-xs text-gray-500 mt-1 font-mono">Relevance: {(source.score * 100).toFixed(0)}%</p>}
-                            </div>
-                          ))}
-                        </div>
-                      </details>
-                    </div>
-                  )}
+                <div ref={scrollRef} />
+              </div>
+            </ScrollArea>
 
-                  {message.error && (
-                    <div className="flex justify-start pl-3 pt-1">
-                      <Alert variant="destructive" className="max-w-md bg-red-50 border-red-200">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription className="text-xs text-red-800">{message.error}</AlertDescription>
-                      </Alert>
-                    </div>
-                  )}
-                </div>
-              ))}
-              {loading && (
-                <div className="flex justify-start">
-                  <div className="bg-white text-gray-800 px-4 py-3 rounded-2xl rounded-bl-none flex items-center gap-2 border">
-                    <div className="flex gap-1.5">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              <div ref={scrollRef} />
+            {/* Input area */}
+            <div className="border-t p-3 bg-white">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSendMessage();
+                }}
+                className="flex items-center gap-2"
+              >
+                <Input
+                  placeholder="Ask about our products..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  disabled={loading}
+                  className="flex-1 bg-gray-100 border-gray-300 focus:ring-emerald-500 focus:border-emerald-500"
+                  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSendMessage()}
+                />
+                <Button
+                  type="submit"
+                  disabled={loading || !input.trim()}
+                  className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300"
+                  size="icon"
+                  aria-label="Send message"
+                >
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                </Button>
+              </form>
             </div>
-          </ScrollArea>
-
-          <div className="border-t p-3 bg-white rounded-b-lg">
-            <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex items-center gap-2">
-              <Input
-                placeholder="Ask about our products..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                disabled={loading}
-                className="flex-1 bg-gray-100 border-gray-300 focus:ring-emerald-500 focus:border-emerald-500"
-              />
-              <Button type="submit" disabled={loading || !input.trim()} className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300" size="icon" aria-label="Send message">
-                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-              </Button>
-            </form>
-          </div>
-        </Card>
+          </Card>
+        </div>
       )}
     </>
   );
