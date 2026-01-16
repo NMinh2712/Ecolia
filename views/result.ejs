@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Reading Result - MẢNH</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">MẢNH</a>
+    <nav>
+      <ul>
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="/ai-reading">Tìm mảnh ghép</a></li>
+        <li><a href="/about">Về chúng tôi</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section style="position: relative; z-index: 5; min-height: 100vh; padding: 2rem 1.5rem; display: flex; align-items: center; justify-content: center;">
+      <div class="result-container fade-in">
+        <!-- Loading Animation -->
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+          <div style="font-size: 1.1rem; color: #b8b1a9; margin-bottom: 1rem; letter-spacing: 1px;">
+            ✨ AI đang ghép mảnh năng lượng của bạn
+          </div>
+          <div style="width: 40px; height: 40px; margin: 0 auto; border: 3px solid #ece6df; border-top-color: #c6a25d; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        </div>
+
+        <h2 style="text-align: center; color: #8c6a4a; margin: 2rem 0;">Kết quả AI Reading của bạn</h2>
+
+        <!-- Energy Status Card -->
+        <div class="energy-card">
+          <div class="energy-label">Trạng thái năng lượng hiện tại</div>
+          <div class="energy-text"><%= data.energy %></div>
+          <p style="color: #6b6b6b; font-size: 1rem; margin: 0;">
+            <%= data.message %>
+          </p>
+        </div>
+
+        <!-- Stone Recommendations -->
+        <div style="margin: 2.5rem 0;">
+          <h3 style="color: #8c6a4a; margin-bottom: 1rem; font-size: 1.25rem;">Mảnh ghép dành cho bạn</h3>
+          <div class="stones-list">
+            <% data.stones.forEach(stone => { %>
+              <span class="stone-tag"><%= stone %></span>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div style="background: rgba(198, 162, 93, 0.1); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;">
+          <p style="color: #6b6b6b; font-size: 1.05rem; margin: 0;">
+            "Chiếc vòng này được tạo ra chỉ cho bạn. AI không phán xét, AI chỉ lắng nghe."
+          </p>
+        </div>
+
+        <!-- Bracelet Preview -->
+        <div style="width: 100%; height: 150px; background: linear-gradient(135deg, #f5efe6, #ece6df); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 2rem 0; color: #b8b1a9; font-size: 1rem;">
+          Bracelet Preview
+        </div>
+
+        <!-- CTA -->
+        <div style="display: flex; gap: 1rem; flex-direction: column;">
+          <% const firstStone = data.stones.length > 0 ? data.stones[0].toLowerCase().replace(/\\s+/g, '-') : 'sunstone-rose-quartz'; %>
+          <a href="/product/sunstone-rose-quartz" class="btn btn-primary" style="text-align: center; font-weight: 600;">Tạo chiếc vòng của tôi</a>
+          <a href="/ai-reading" class="btn btn-secondary" style="text-align: center;">Thực hiện AI Reading lại</a>
+        </div>
+
+        <!-- Additional Info -->
+        <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(184, 177, 169, 0.3); text-align: center;">
+          <p style="color: #9a9a9a; font-size: 0.9rem;">
+            Thông tin: Mỗi người đều có những mảnh ghép cảm xúc chưa trọn vẹn.<br>
+            MẢNH không hoàn hảo bạn. MẢNH chỉ giúp bạn lắng nghe chính mình.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 MẢNH. Mảnh ghép của riêng bạn. Với yêu thương từ Việt Nam.</p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</body>
+</html>

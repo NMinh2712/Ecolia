@@ -1,34 +1,43 @@
 import type React from "react"
-import { Inter } from "next/font/google"
+import type { Metadata } from "next"
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const inter = Inter({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-inter",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-})
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" })
 
-export const metadata = {
-  title: "ECOLIA | Chậu cây tự phân hủy từ lõi bắp — Trồng xanh, Sống xanh",
+export const metadata: Metadata = {
+  title: "MẢNH - Mảnh ghép của riêng bạn",
   description:
-    "ECOLIA tạo ra chậu cây tự phân hủy từ lõi bắp và phụ phẩm nông nghiệp — thân thiện môi trường, bổ sung dinh dưỡng cho đất. Khám phá dòng sản phẩm EcoGreen.",
-  keywords: "chậu cây phân hủy, lõi bắp, thân thiện môi trường, nông nghiệp bền vững, sống xanh",
-    generator: 'Ecolia'
+    "Khám phá chiếc vòng tay được tạo ra riêng cho bạn thông qua AI đọc năng lượng. MẢNH là nơi mỗi chiếc trang sức kể một câu chuyện cảm xúc độc nhất.",
+  icons: {
+    icon: [
+      {
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="vi" className={`${inter.variable} antialiased`}>
-      <head>
-        <link rel="alternate" href="https://ecolia.com/vi" hrefLang="vi" />
-        <link rel="alternate" href="https://ecolia.com/en" hrefLang="en" />
-      </head>
-      <body className="font-sans bg-background text-foreground">{children}</body>
+    <html lang="vi">
+      <body className={`${_playfair.variable} font-sans antialiased`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
