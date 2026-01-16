@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { Chatbot } from "@/components/chatbot"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="vi">
       <body className={`${_playfair.variable} font-sans antialiased`}>
         {children}
+        <Chatbot />
         <Analytics />
       </body>
     </html>
