@@ -23,27 +23,27 @@ function logError(action: string, message: string, error?: any) {
 const SEED_DOCUMENTS = [
   {
     id: 1,
-    text: "EcoGreen Mini là chậu cây có kích thước 8×7 cm, được làm từ lõi bắp. Chậu phân hủy sinh học trong 2-4 tuần. Hoàn hảo để trồng hạt giống và cây thảo mộc. Sản phẩm thân thiện với môi trường và có thể trồng trực tiếp vào đất.",
+    text: "The EcoGreen Mini is a 3x2.8 inch plant pot made from corn cobs. It biodegrades in 2-4 weeks. Perfect for seeds and herbs. It is environmentally friendly and can be planted directly in the ground.",
     category: "products",
   },
   {
     id: 2,
-    text: "EcoGreen Standard là chậu cây kích thước trung bình được làm từ phụ phẩm nông nghiệp. Chậu phân hủy sinh học trong 4-6 tuần. Thích hợp cho cây con lớn. Được thiết kế để bổ sung dinh dưỡng cho đất khi phân hủy.",
+    text: "The EcoGreen Standard is a medium-sized plant pot made from agricultural by-products. It biodegrades in 4-6 weeks. Suitable for larger seedlings. Designed to enrich the soil with nutrients as it decomposes.",
     category: "products",
   },
   {
     id: 3,
-    text: "Quy trình sản xuất Ecolia bắt đầu bằng việc thu thập lõi bắp và phụ phẩm nông nghiệp. Các nguyên liệu được làm sạch và chuẩn bị kỹ lưỡng. Sau đó được xử lý bằng công nghệ sinh học độc quyền để tạo thành chậu cây.",
+    text: "Ecolia's production process begins with collecting corn cobs and agricultural by-products. The materials are thoroughly cleaned and prepared. They are then processed using proprietary biotechnology to form the plant pots.",
     category: "process",
   },
   {
     id: 4,
-    text: "Ecolia cam kết bền vững. Các chậu cây của chúng tôi được làm từ 100% nguyên liệu tái chế từ nông nghiệp. Mỗi sản phẩm được thiết kế để phân hủy sinh học hoàn toàn trong đất mà không để lại các chất độc hại.",
+    text: "Ecolia is committed to sustainability. Our plant pots are made from 100% recycled agricultural materials. Each product is designed to biodegrade completely in the soil without leaving any harmful substances.",
     category: "sustainability",
   },
   {
     id: 5,
-    text: "Liên hệ Ecolia: Trang web: www.ecolia.vn, Email: info@ecolia.vn, Điện thoại: 0123-456-789. Chúng tôi sẵn sàng trả lời các câu hỏi của bạn về sản phẩm và dịch vụ của chúng tôi.",
+    text: "Contact Ecolia: Website: www.ecolia.vn, Email: info@ecolia.vn, Phone: 0123-456-789. We are ready to answer your questions about our products and services.",
     category: "contact",
   },
 ];
