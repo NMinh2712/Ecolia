@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Loader2, Send, X, MessageCircle, ChevronDown } from "lucide-react";
+import { Loader2, Send, X, MessageCircle, ChevronDown, GripHorizontal } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface Message {
@@ -27,6 +27,9 @@ export function Chatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const windowRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const savedMessages = localStorage.getItem("chatbot_history");
@@ -54,6 +57,47 @@ export function Chatbot() {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  // Drag handler
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest("button, input")) return;
+    setIsDragging(true);
+    setDragOffset({
+      x: e.clientX - (windowRef.current?.offsetLeft || 0),
+      y: e.clientY - (windowRef.current?.offsetTop || 0),
+    });
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging || !windowRef.current) return;
+
+      const newLeft = e.clientX - dragOffset.x;
+      const newTop = e.clientY - dragOffset.y;
+
+      // Boundary check
+      const maxX = window.innerWidth - windowRef.current.offsetWidth;
+      const maxY = window.innerHeight - windowRef.current.offsetHeight;
+
+      windowRef.current.style.left = `${Math.max(0, Math.min(newLeft, maxX))}px`;
+      windowRef.current.style.top = `${Math.max(0, Math.min(newTop, maxY))}px`;
+      windowRef.current.style.right = "auto";
+      windowRef.current.style.bottom = "auto";
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [isDragging, dragOffset]);
 
   const initMessage = () => {
     setMessages([
@@ -140,19 +184,30 @@ export function Chatbot() {
       )}
 
       {isOpen && (
-        <div className="fixed bottom-8 right-8 w-full max-w-sm sm:max-w-md z-50">
-          <Card className="shadow-2xl flex flex-col h-[600px] bg-gradient-to-b from-accent-cream to-background border border-accent-pink/30 rounded-2xl overflow-hidden">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-healing-brown via-energy-gold to-healing-brown text-white p-5 flex justify-between items-center">
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <MessageCircle className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif font-bold text-lg">MẢNH</h3>
-                    <p className="text-xs opacity-90">Trợ lý thông minh</p>
-                  </div>
+        <div
+          ref={windowRef}
+          className="fixed bottom-8 right-8 w-full max-w-sm sm:max-w-md z-50"
+          style={{
+            width: "420px",
+            height: "600px",
+            minHeight: "600px",
+            maxHeight: "600px",
+          }}
+        >
+          <Card className="shadow-2xl flex flex-col h-full w-full bg-gradient-to-b from-accent-cream to-background border border-accent-pink/30 rounded-2xl overflow-hidden select-none">
+            {/* Drag Handle Header */}
+            <div
+              className="bg-gradient-to-r from-healing-brown via-energy-gold to-healing-brown text-white p-5 flex justify-between items-center cursor-grab active:cursor-grabbing hover:from-healing-brown/90 hover:via-energy-gold/90 hover:to-healing-brown/90 transition-all"
+              onMouseDown={handleMouseDown}
+            >
+              <div className="flex items-center gap-2">
+                <GripHorizontal className="w-4 h-4 opacity-70" />
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold text-lg">MẢNH</h3>
+                  <p className="text-xs opacity-90">Trợ lý thông minh</p>
                 </div>
               </div>
               <div className="flex gap-1">
@@ -176,7 +231,7 @@ export function Chatbot() {
             </div>
 
             {/* Messages */}
-            <ScrollArea className="flex-1 p-5 bg-gradient-to-b from-accent-cream/50 to-background/50">
+            <ScrollArea className="flex-1 p-5 bg-gradient-to-b from-accent-cream/50 to-background/50 overflow-hidden">
               <div className="space-y-4">
                 {messages.map((m) => (
                   <div key={m.id} className="space-y-2">
@@ -186,7 +241,7 @@ export function Chatbot() {
                       }`}
                     >
                       <div
-                        className={`max-w-xs px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                        className={`max-w-xs px-4 py-3 rounded-2xl text-sm leading-relaxed break-words ${
                           m.sender === "user"
                             ? "bg-healing-brown text-white rounded-br-none shadow-md"
                             : m.error
@@ -209,7 +264,7 @@ export function Chatbot() {
                         <summary className="cursor-pointer font-medium hover:text-healing-brown transition">
                           📚 Nguồn tham khảo ({m.sources.length})
                         </summary>
-                        <div className="ml-4 mt-2 space-y-1 bg-white/40 p-2 rounded-lg mt-2">
+                        <div className="ml-4 mt-2 space-y-1 bg-white/40 p-2 rounded-lg">
                           {m.sources.map((s, i) => (
                             <p key={i} className="text-xs">
                               • {s.category} ({Math.round((s.score || 0) * 100)}%)
@@ -239,8 +294,8 @@ export function Chatbot() {
               </div>
             </ScrollArea>
 
-            {/* Input */}
-            <div className="p-4 border-t border-accent-pink/20 bg-white/50 flex gap-2">
+            {/* Input - Fixed Height */}
+            <div className="flex-shrink-0 p-4 border-t border-accent-pink/20 bg-white/50 flex gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -252,7 +307,7 @@ export function Chatbot() {
               <Button
                 onClick={handleSendMessage}
                 disabled={loading || !input.trim()}
-                className="bg-healing-brown hover:bg-energy-gold text-white rounded-full w-10 h-10 p-0 flex items-center justify-center transition-all"
+                className="bg-healing-brown hover:bg-energy-gold text-white rounded-full w-10 h-10 p-0 flex-shrink-0 flex items-center justify-center transition-all"
               >
                 {loading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
