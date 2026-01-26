@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Header from "@/components/Header"
+import { getBraceletRecommendation, type BraceletRecommendationInput } from "@/lib/get-bracelet-recommendation"
 
 const processingSteps = [
   "Đang tổng hợp dữ liệu cảm xúc của bạn…",
@@ -23,7 +24,20 @@ export default function AIProcessingPage() {
 
       if (stepIndex >= processingSteps.length) {
         clearInterval(interval)
-        setTimeout(() => {
+        setTimeout(async () => {
+          // Get form data from session storage
+          const formDataStr = sessionStorage.getItem("formData")
+          if (formDataStr) {
+            const formData = JSON.parse(formDataStr) as BraceletRecommendationInput
+            
+            // Generate bracelet recommendation
+            const recommendation = getBraceletRecommendation(formData)
+            
+            // Save to session storage
+            sessionStorage.setItem("braceletRecommendation", JSON.stringify(recommendation))
+            console.log("[v0] Bracelet recommendation generated:", recommendation)
+          }
+          
           router.push("/ai-result")
         }, 1000)
       }
