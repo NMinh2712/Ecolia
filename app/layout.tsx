@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { ChatbotWrapper } from "@/components/chatbot-wrapper"
 import "./globals.css"
 
 const inter = Inter({
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   title: "SoulGem AI - Vòng Tay Năng Lượng Cá Nhân Hóa",
   description:
     "Khám phá chiếc vòng tay độc nhất được tạo ra riêng cho bạn qua AI. SoulGem giúp bạn kết nối với năng lượng và tinh thần thông qua đá quý.",
-  charset: "utf-8",
+  
   icons: {
     icon: "/favicon.ico",
   },
@@ -45,6 +46,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         {children}
+        <ChatbotWrapper />
         <Analytics />
       </body>
     </html>
