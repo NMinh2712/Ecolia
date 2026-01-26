@@ -1,58 +1,50 @@
 import type React from "react"
 import type { Metadata } from "next"
-
-import { Playfair_Display } from "next/font/google"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-
+import { Inter, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { Chatbot } from "@/components/chatbot"
 import "./globals.css"
 
-/* Google font */
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans",
+  display: "swap",
+})
+
 const playfair = Playfair_Display({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-serif",
   display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "MẢNH - Mảnh ghép của riêng bạn",
+  title: "SoulGem AI - Vòng Tay Năng Lượng Cá Nhân Hóa",
   description:
-    "Khám phá chiếc vòng tay được tạo ra riêng cho bạn thông qua AI đọc năng lượng. MẢNH là nơi mỗi chiếc trang sức kể một câu chuyện cảm xúc độc nhất.",
+    "Khám phá chiếc vòng tay độc nhất được tạo ra riêng cho bạn qua AI. SoulGem giúp bạn kết nối với năng lượng và tinh thần thông qua đá quý.",
+  charset: "utf-8",
   icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-    ],
+    icon: "/favicon.ico",
   },
-  generator: "v0.app",
+  openGraph: {
+    title: "SoulGem AI - Vòng Tay Năng Lượng Cá Nhân Hóa",
+    description:
+      "Khám phá chiếc vòng tay độc nhất được tạo ra riêng cho bạn qua AI. SoulGem giúp bạn kết nối với năng lượng và tinh thần thông qua đá quý.",
+    type: "website",
+  },
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="vi">
-      <body
-        className={`
-          ${GeistSans.className}
-          ${GeistMono.variable}
-          ${playfair.variable}
-          font-sans
-          antialiased
-        `}
-      >
+    <html lang="vi" className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body className="font-sans antialiased">
         {children}
-        <Chatbot />
         <Analytics />
       </body>
     </html>

@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Font Stack - Vietnamese Unicode Support */
+@theme inline {
+  --font-sans: "Inter", "Be Vietnam Pro", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-serif: "Playfair Display", Georgia, serif;
+}
+
 :root {
   /* MẢNH Healing Palette */
   --background: #faf7f3;
