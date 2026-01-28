@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import { SimpleDatePicker } from "@/components/SimpleDatePicker"
 import { analyzeEnergy, type UserAnswers } from "@/lib/ai-rules"
 import {
   emotionalNeeds,
@@ -109,8 +110,7 @@ const sections = [
         type: "radio",
         options: [
           { label: "99,000 VND", value: "99000" },
-          { label: "149,000 VND", value: "149000" },
-          { label: "199,000 VND", value: "199000" },
+          { label: "159,000 VND", value: "159000" },
         ],
         required: true,
       },
@@ -182,7 +182,7 @@ export default function AIReading() {
         fashionStyle: answers.fashionStyle || "minimalist",
         colorPreference: answers.colorPreference || "any",
         wristSize: answers.wristSize || "16",
-        budget: answers.budget || "149000",
+        budget: answers.budget || "159000",
         affirmation: answers.affirmation || "",
         name: name || "Bạn",
       }
@@ -239,22 +239,26 @@ export default function AIReading() {
         </div>
 
         {/* Section Info */}
-        <div className="mb-12 text-center">
-          <p className="text-sm text-energy-gold font-medium mb-2 uppercase tracking-wide">
+        <div className="mb-12 text-center animate-fadeIn">
+          <p className="text-sm text-energy-gold font-medium mb-2 uppercase tracking-wide animate-slideInDown">
             {currentSec.title}
           </p>
-          <h2 className="text-3xl md:text-4xl font-serif text-healing-brown">{currentSec.subtitle}</h2>
+          <h2 className="text-3xl md:text-4xl font-serif text-healing-brown text-glow-intense">
+            {currentSec.subtitle}
+          </h2>
         </div>
 
         {/* Question Container */}
-        <div className="mb-16">
-          <h3 className="text-xl md:text-2xl font-serif text-healing-brown mb-8 text-center">{currentQuestion.question}</h3>
+        <div className="mb-16 animate-fadeIn">
+          <h3 className="text-xl md:text-2xl font-serif text-healing-brown mb-8 text-center animate-slideInUp">
+            {currentQuestion.question}
+          </h3>
 
           {/* Text Input */}
           {currentQuestion.type === "text" && (
             <input
               type="text"
-              placeholder={currentQuestion.placeholder}
+              placeholder={(currentQuestion as any).placeholder || ""}
               value={answers[currentQuestion.id] || ""}
               onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
               className="w-full px-6 py-4 rounded-lg border-2 border-border bg-white text-lg focus:outline-none focus:border-energy-gold transition-colors"
@@ -266,7 +270,7 @@ export default function AIReading() {
           {currentQuestion.type === "number" && (
             <input
               type="number"
-              placeholder={currentQuestion.placeholder}
+              placeholder={(currentQuestion as any).placeholder || ""}
               value={answers[currentQuestion.id] || ""}
               onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
               className="w-full px-6 py-4 rounded-lg border-2 border-border bg-white text-lg focus:outline-none focus:border-energy-gold transition-colors"
@@ -277,7 +281,7 @@ export default function AIReading() {
           {/* Textarea */}
           {currentQuestion.type === "textarea" && (
             <textarea
-              placeholder={currentQuestion.placeholder}
+              placeholder={(currentQuestion as any).placeholder || ""}
               value={answers[currentQuestion.id] || ""}
               onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
               className="w-full px-6 py-4 rounded-lg border-2 border-border bg-white text-lg focus:outline-none focus:border-energy-gold transition-colors min-h-24 resize-none"
@@ -287,25 +291,24 @@ export default function AIReading() {
 
           {/* Date Input */}
           {currentQuestion.type === "date" && (
-            <input
-              type="date"
+            <SimpleDatePicker
               value={answers[currentQuestion.id] || ""}
-              onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
-              className="w-full px-6 py-4 rounded-lg border-2 border-border bg-white text-lg focus:outline-none focus:border-energy-gold transition-colors"
+              onChange={(value) => handleAnswer(currentQuestion.id, value)}
+              placeholder="Chọn ngày sinh của bạn"
             />
           )}
 
           {/* Radio Options */}
           {currentQuestion.type === "radio" && (
-            <div className="space-y-3">
+            <div className="space-y-3 stagger-container">
               {currentQuestion.options?.map((option) => (
                 <button
                   key={option.value}
                   onClick={() => handleAnswer(currentQuestion.id, option.value)}
-                  className={`w-full p-4 rounded-lg border-2 transition-all duration-200 font-medium text-left ${
+                  className={`w-full p-4 rounded-lg border-2 transition-all duration-300 font-medium text-left hover:translate-x-1 ${
                     answers[currentQuestion.id] === option.value
-                      ? "border-energy-gold bg-accent-cream text-healing-brown shadow-md"
-                      : "border-border bg-white text-foreground hover:border-energy-gold hover:bg-accent-cream"
+                      ? "border-energy-gold bg-accent-cream text-healing-brown shadow-md animate-glow-pulse"
+                      : "border-border bg-white text-foreground hover:border-energy-gold hover:bg-accent-cream hover:shadow-md"
                   }`}
                 >
                   {option.label}
@@ -317,14 +320,14 @@ export default function AIReading() {
 
         {/* Name Input if Last Question */}
         {isLastQuestion && (
-          <div className="mb-16 p-6 bg-accent-cream rounded-lg">
+          <div className="mb-16 p-6 bg-accent-cream rounded-lg border-2 border-accent-pink animate-bounce-in">
             <label className="block text-healing-brown font-medium mb-3">Bạn tên gì?</label>
             <input
               type="text"
               placeholder="Nhập tên của bạn..."
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-6 py-4 rounded-lg border-2 border-border bg-white text-lg focus:outline-none focus:border-energy-gold transition-colors"
+              className="w-full px-6 py-4 rounded-lg border-2 border-border bg-white text-lg focus:outline-none focus:border-energy-gold focus:shadow-lg transition-all"
             />
           </div>
         )}

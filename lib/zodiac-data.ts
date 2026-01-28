@@ -7,7 +7,8 @@ export const ZODIAC_SIGNS = [
     startDate: { month: 3, day: 21 },
     endDate: { month: 4, day: 19 },
     element: "Hỏa",
-    birthstone: "Mắt Hổ",
+    birthstone: "Thạch Anh Vàng",
+    relatedElement: "Thạch Anh Hồng",
   },
   {
     id: "kim-nguu",
@@ -16,6 +17,7 @@ export const ZODIAC_SIGNS = [
     endDate: { month: 5, day: 20 },
     element: "Thổ",
     birthstone: "Thạch Anh Hồng",
+    relatedElement: "Đá Hắc Nguyệt Quang",
   },
   {
     id: "song-tu",
@@ -24,6 +26,7 @@ export const ZODIAC_SIGNS = [
     endDate: { month: 6, day: 20 },
     element: "Khí",
     birthstone: "Thạch Anh Vàng",
+    relatedElement: "Bê Tông Thạch",
   },
   {
     id: "cu-giai",
@@ -32,6 +35,7 @@ export const ZODIAC_SIGNS = [
     endDate: { month: 7, day: 22 },
     element: "Nước",
     birthstone: "Đá Mặt Trăng",
+    relatedElement: "Thạch Anh Hồng",
   },
   {
     id: "su-tu",
@@ -40,6 +44,7 @@ export const ZODIAC_SIGNS = [
     endDate: { month: 8, day: 22 },
     element: "Hỏa",
     birthstone: "Đá Mặt Trời",
+    relatedElement: "Thạch Anh Vàng",
   },
   {
     id: "xu-nu",
@@ -47,7 +52,8 @@ export const ZODIAC_SIGNS = [
     startDate: { month: 8, day: 23 },
     endDate: { month: 9, day: 22 },
     element: "Thổ",
-    birthstone: "Sapphire Xanh",
+    birthstone: "Olit",
+    relatedElement: "Đá Hắc Nguyệt Quang",
   },
   {
     id: "thien-binh",
@@ -55,7 +61,8 @@ export const ZODIAC_SIGNS = [
     startDate: { month: 9, day: 23 },
     endDate: { month: 10, day: 22 },
     element: "Khí",
-    birthstone: "Opal",
+    birthstone: "Thạch Anh Trắng",
+    relatedElement: "Bê Tông Thạch",
   },
   {
     id: "bo-cap",
@@ -63,7 +70,8 @@ export const ZODIAC_SIGNS = [
     startDate: { month: 10, day: 23 },
     endDate: { month: 11, day: 21 },
     element: "Nước",
-    birthstone: "Topaz",
+    birthstone: "Thạch Anh Tím",
+    relatedElement: "Thạch Anh Hồng",
   },
   {
     id: "nhan-ma",
@@ -71,7 +79,8 @@ export const ZODIAC_SIGNS = [
     startDate: { month: 11, day: 22 },
     endDate: { month: 12, day: 21 },
     element: "Hỏa",
-    birthstone: "Turquoise",
+    birthstone: "Thạch Anh Vàng",
+    relatedElement: "Olit",
   },
   {
     id: "ma-ket",
@@ -79,7 +88,8 @@ export const ZODIAC_SIGNS = [
     startDate: { month: 12, day: 22 },
     endDate: { month: 1, day: 19 },
     element: "Thổ",
-    birthstone: "Garnet",
+    birthstone: "Ngọc Hồng Lựu",
+    relatedElement: "Đá Hắc Nguyệt Quang",
   },
   {
     id: "bao-binh",
@@ -88,6 +98,7 @@ export const ZODIAC_SIGNS = [
     endDate: { month: 2, day: 18 },
     element: "Khí",
     birthstone: "Thạch Anh Tím",
+    relatedElement: "Thạch Anh Trắng",
   },
   {
     id: "song-ngu",
@@ -95,7 +106,8 @@ export const ZODIAC_SIGNS = [
     startDate: { month: 2, day: 19 },
     endDate: { month: 3, day: 20 },
     element: "Nước",
-    birthstone: "Aquamarine",
+    birthstone: "Bê Tông Thạch",
+    relatedElement: "Thạch Anh Hồng",
   },
 ]
 

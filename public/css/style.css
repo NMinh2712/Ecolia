@@ -1,5 +1,5 @@
 /* MẢNH - Healing & Emotional Jewelry Website */
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+/* Font imports removed - Using Be Vietnam Pro from next/font/google for better Vietnamese rendering */
 
 :root {
   /* Healing Color Palette */
@@ -17,7 +17,7 @@
   --text-light: #9a9a9a;
 
   /* Typography */
-  --font-serif: "Playfair Display", serif;
+  --font-serif: "Be Vietnam Pro", "Georgia", serif;
   --font-sans: "Inter", sans-serif;
 
   /* Spacing */
@@ -94,17 +94,20 @@ h6 {
 
 h1 {
   font-size: 3.5rem;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
 }
 
 h2 {
   font-size: 2.5rem;
   margin-bottom: var(--spacing-md);
+  letter-spacing: -0.3px;
 }
 
 h3 {
   font-size: 1.75rem;
   margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.2px;
 }
 
 p {
@@ -359,7 +362,7 @@ nav a:hover::after {
 .energy-label {
   font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   color: var(--stone-gray);
   margin-bottom: var(--spacing-sm);
 }
