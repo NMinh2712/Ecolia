@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: ['class', '.dark'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -61,6 +61,12 @@ const config: Config = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+
+        // Các màu custom của bạn (từ component AIResultPage)
+        'healing-brown': '#5C4033',     // ví dụ, thay bằng mã màu thật của bạn
+        'energy-gold': '#D4AF37',
+        'accent-pink': '#F8C8DC',
+        'accent-cream': '#FFF5E1',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -69,28 +75,86 @@ const config: Config = {
       },
       keyframes: {
         'accordion-down': {
-          from: {
-            height: '0',
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)',
-          },
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
         'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)',
-          },
-          to: {
-            height: '0',
-          },
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideInUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        glow: {
+          '0%, 100%': { boxShadow: '0 0 15px rgba(212, 175, 55, 0.3)' },
+          '50%': { boxShadow: '0 0 25px rgba(212, 175, 55, 0.6)' },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        fadeIn: 'fadeIn 0.6s ease-out',
+        slideInUp: 'slideInUp 0.6s ease-out',
+        scaleIn: 'scaleIn 0.5s ease-out',
+        glow: 'glow 3s ease-in-out infinite',
+      },
+      fontFamily: {
+        sans: [
+          'Inter',
+          'var(--font-sans)',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif',
+        ],
+        serif: [
+          'var(--font-serif)',
+          '"Be Vietnam Pro"',
+          'Georgia',
+          'Garamond',
+          'serif',
+        ],
+        heading: [
+          'var(--font-serif)',
+          '"Be Vietnam Pro"',
+          'Georgia',
+          'Garamond',
+          'serif',
+        ],
+        body: [
+          'Inter',
+          'system-ui',
+          'sans-serif',
+        ],
+        mono: [
+          'JetBrains Mono',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          'Liberation Mono',
+          'Courier New',
+          'monospace',
+        ],
       },
     },
   },
   plugins: [require('tailwindcss-animate')],
 }
+
 export default config

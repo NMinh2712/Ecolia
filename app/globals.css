@@ -5,8 +5,8 @@
 
 /* Font Stack - Vietnamese Unicode Support */
 @theme inline {
-  --font-sans: "Inter", "Be Vietnam Pro", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-serif: var(--font-serif, "Be Vietnam Pro"), "Georgia", "Garamond", serif;
 }
 
 :root {
@@ -139,6 +139,9 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   h1,
   h2,
@@ -147,6 +150,27 @@
   h5,
   h6 {
     @apply font-serif font-normal;
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    word-spacing: normal;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+  }
+  
+  /* Specific optimizations for Be Vietnam Pro font rendering */
+  h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: var(--font-serif, "Be Vietnam Pro"), Georgia, Garamond, serif;
+    font-weight: 600;
+  }
+  
+  h1 {
+    font-weight: 700;
+  }
+  
+  h2 {
+    font-weight: 600;
   }
 }
 
@@ -215,6 +239,60 @@
     }
   }
 
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes floatIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glow {
+    0%,
+    100% {
+      box-shadow: 0 0 5px rgba(198, 162, 93, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(198, 162, 93, 0.6);
+    }
+  }
+
   .animate-fadeIn {
     animation: fadeIn 0.6s ease-in-out;
   }
@@ -225,5 +303,319 @@
 
   .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-slideInUp {
+    animation: slideInUp 0.7s ease-out;
+  }
+
+  .animate-slideInDown {
+    animation: slideInDown 0.7s ease-out;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.5s ease-out;
+  }
+
+  .animate-floatIn {
+    animation: floatIn 0.8s ease-out;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+}
+
+/* ============================================ */
+/* MODERN ANIMATIONS FOR PRODUCT SHOWCASE     */
+/* ============================================ */
+@layer components {
+  /* Glow Pulse - For jewelry products */
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 10px rgba(198, 162, 93, 0.3), 0 0 20px rgba(198, 162, 93, 0.1);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(198, 162, 93, 0.6), 0 0 40px rgba(198, 162, 93, 0.2);
+      transform: scale(1.02);
+    }
+  }
+
+  /* Stagger Animation for Product Cards */
+  @keyframes stagger-in {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Parallax Float Effect */
+  @keyframes float-gentle {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Shimmer Effect for Premium Feel */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  /* Rainbow Gradient Shift */
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Rotate and Glow for Hero Section */
+  @keyframes rotate-glow {
+    0% {
+      transform: rotate(0deg);
+      box-shadow: 0 0 15px rgba(198, 162, 93, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(198, 162, 93, 0.6);
+    }
+    100% {
+      transform: rotate(360deg);
+      box-shadow: 0 0 15px rgba(198, 162, 93, 0.3);
+    }
+  }
+
+  /* Bounce In with Scale */
+  @keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(20px);
+    }
+    60% {
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Text Reveal */
+  @keyframes text-reveal {
+    from {
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  /* Utility Classes */
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  .animate-stagger-in {
+    animation: stagger-in 0.8s ease-out;
+  }
+
+  .animate-float-gentle {
+    animation: float-gentle 4s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  .animate-rotate-glow {
+    animation: rotate-glow 4s ease-in-out infinite;
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .animate-text-reveal {
+    animation: text-reveal 0.8s ease-out;
+  }
+
+  /* Product Card Hover Effects */
+  .product-card-hover {
+    @apply transition-all duration-300 hover:shadow-2xl hover:scale-105 cursor-pointer;
+  }
+
+  .product-card-hover:hover {
+    box-shadow: 0 0 30px rgba(198, 162, 93, 0.4);
+  }
+
+  /* Glow Text - for headings */
+  .text-glow {
+    text-shadow: 0 0 20px rgba(198, 162, 93, 0.3);
+  }
+
+  .text-glow-intense {
+    text-shadow: 0 0 10px rgba(198, 162, 93, 0.6), 0 0 20px rgba(198, 162, 93, 0.3);
+  }
+
+  /* Hero Section Animations */
+  .hero-title {
+    animation: text-reveal 1s ease-out;
+  }
+
+  .hero-subtitle {
+    animation: fadeIn 1s ease-out 0.2s both;
+  }
+
+  /* Staggered List Animations */
+  .stagger-container > * {
+    animation: stagger-in 0.6s ease-out forwards;
+  }
+
+  .stagger-container > *:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .stagger-container > *:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .stagger-container > *:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .stagger-container > *:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .stagger-container > *:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  /* Particle-like effect for background */
+  .particles-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .particles-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(198, 162, 93, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(232, 213, 209, 0.1) 0%, transparent 50%);
+    animation: float-gentle 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* Smooth Scroll Enhancement */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus Visible Enhancements */
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--energy-gold);
+    outline-offset: 2px;
+  }
+
+  /* Gradient Text Animation */
+  @keyframes gradient-text-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-gradient-text {
+    background-size: 200% 200%;
+    animation: gradient-text-shift 3s ease infinite;
+  }
+
+  /* Slow Spin Animation for Gems */
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+  }
+
+  /* Cursor Glow Effect */
+  .cursor-glow {
+    box-shadow: 0 0 20px rgba(198, 162, 93, 0.4);
+  }
+
+  /* Smooth Scroll Enhancement */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus Visible Enhancements */
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--energy-gold);
+    outline-offset: 2px;
+  }
+}
+/* Additional Vietnamese Typography Optimizations */
+@layer base {
+  /* Ensure proper rendering of Vietnamese diacritical marks */
+  html {
+    font-feature-settings: "kern" 1;
+  }
+  
+  /* Prevent diacritical mark misalignment */
+  p, span, div {
+    -webkit-text-stroke: 0.2px rgba(0, 0, 0, 0);
+  }
+  
+  /* Ensure consistent line heights for text with diacritics */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.35;
+  }
+  
+  body {
+    line-height: 1.6;
   }
 }

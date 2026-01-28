@@ -27,24 +27,26 @@ export default function ShopPage() {
       <Header />
 
       {/* Hero */}
-      <section className="pt-32 pb-12 px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-healing-brown mb-4">Bộ Sưu Tập MẢNH</h1>
-        <p className="text-foreground-secondary max-w-2xl mx-auto">
+      <section className="pt-32 pb-12 px-4 text-center particles-bg">
+        <h1 className="text-4xl md:text-5xl font-serif font-bold text-healing-brown mb-4 hero-title text-glow">
+          Bộ Sưu Tập MẢNH
+        </h1>
+        <p className="text-foreground-secondary max-w-2xl mx-auto hero-subtitle">
           Khám phá những chiếc vòng tay được tạo ra để đồng hành cùng cảm xúc và hành trình của bạn.
         </p>
       </section>
 
       {/* Category Filter */}
-      <section className="max-w-7xl mx-auto px-4 mb-12">
+      <section className="max-w-7xl mx-auto px-4 mb-12 animate-slideInUp">
         <div className="flex flex-wrap gap-3 justify-center">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-6 py-2 rounded-full font-medium transition-colors ${
+              className={`px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 ${
                 activeCategory === cat.id
-                  ? "bg-energy-gold text-white"
-                  : "bg-accent-cream text-healing-brown hover:bg-accent-pink"
+                  ? "bg-energy-gold text-white shadow-lg animate-pulse"
+                  : "bg-accent-cream text-healing-brown hover:bg-accent-pink hover:shadow-md"
               }`}
             >
               {cat.label}
@@ -55,13 +57,14 @@ export default function ShopPage() {
 
       {/* Products Grid */}
       <section className="max-w-7xl mx-auto px-4 pb-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-container">
           {filteredProducts.map((product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
-              <div className="healing-card overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow cursor-pointer">
+              <div className="healing-card overflow-hidden h-full flex flex-col hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer product-card-hover group animate-stagger-in">
                 {/* Product Image Placeholder */}
-                <div className="bg-gradient-to-br from-accent-cream to-accent-pink h-64 flex items-center justify-center">
-                  <div className="text-6xl">
+                <div className="bg-gradient-to-br from-accent-cream to-accent-pink h-64 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer group-hover:animate-pulse"></div>
+                  <div className="text-6xl animate-float-gentle group-hover:animate-rotate-glow">
                     {product.energyType === "Năng lượng Tích cực" && "☀️"}
                     {product.energyType === "Năng lượng Tĩnh Lặng" && "🌙"}
                     {product.energyType === "Năng lượng Thịnh Vượng" && "💎"}
@@ -71,13 +74,13 @@ export default function ShopPage() {
 
                 {/* Product Info */}
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="font-serif text-xl text-healing-brown mb-2">{product.name}</h3>
+                  <h3 className="font-serif text-xl text-healing-brown mb-2 group-hover:text-energy-gold transition-colors">{product.name}</h3>
                   <p className="text-sm text-foreground-secondary mb-4 flex-1">{product.meaning}</p>
 
                   {/* Stones */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {product.stones.map((stone) => (
-                      <span key={stone.name} className="text-xs px-2 py-1 bg-accent-cream text-healing-brown rounded">
+                      <span key={stone.name} className="text-xs px-2 py-1 bg-accent-cream text-healing-brown rounded hover:bg-accent-pink transition-colors">
                         {stone.name}
                       </span>
                     ))}
@@ -85,8 +88,8 @@ export default function ShopPage() {
 
                   {/* Price and CTA */}
                   <div className="flex items-center justify-between">
-                    <p className="font-semibold text-energy-gold text-lg">{product.price.toLocaleString("vi-VN")}đ</p>
-                    <span className="text-healing-brown font-medium text-sm">Xem chi tiết →</span>
+                    <p className="font-semibold text-energy-gold text-lg group-hover:text-accent-pink transition-colors">{product.price.toLocaleString("vi-VN")}đ</p>
+                    <span className="text-healing-brown font-medium text-sm group-hover:translate-x-1 transition-transform">Xem chi tiết →</span>
                   </div>
                 </div>
               </div>

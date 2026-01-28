@@ -37,21 +37,21 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-serif text-sm mb-4">Thông tin</h4>
+            <h4 className="font-serif text-sm mb-4">Liên Hệ</h4>
             <ul className="space-y-2 text-sm text-white/80">
               <li>
-                <a href="mailto:hello@manh.vn" className="hover:text-white transition-colors">
-                  hello@manh.vn
+                <a href="mailto:manh.gemsbracelet@gmail.com" className="hover:text-white transition-colors">
+                  manh.gemsbracelet@gmail.com
                 </a>
               </li>
               <li>
-                <a href="https://instagram.com/manh.vn" className="hover:text-white transition-colors">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href="https://zalo.me/manh.vn" className="hover:text-white transition-colors">
-                  Zalo
+                <a 
+                  href="https://www.facebook.com/share/1aRD7NVDHe/?mibextid=wwXIfr" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Facebook
                 </a>
               </li>
             </ul>
