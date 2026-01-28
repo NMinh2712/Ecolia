@@ -45,64 +45,64 @@ export const fiveElements = {
   kim: { name: "Kim (Kim loại)", value: "kim", supportColors: ["#C0C0C0", "#FFD700", "#D3D3D3"] },
 }
 
-// Emotional Needs & Stone Recommendations
+// Emotional Needs & Stone Recommendations (Cập nhật cho 11 đá)
 export const emotionalNeeds = {
   stress: {
     label: "Căng thẳng, Kiệt sức",
     value: "stress",
-    stones: ["Thạch Anh Tím", "Thạch Anh Khói"],
+    stones: ["Thạch Anh Tím (Amethyst)", "Aquamarine"],
     advice: "Bạn cần năng lượng bình yên để phục hồi sức sống.",
   },
   lost: {
     label: "Mông lung, Thiếu định hướng",
     value: "lost",
-    stones: ["Mắt Hổ", "Thạch Anh Vàng"],
+    stones: ["Đá Labradorite (Đá Hắc Nguyệt Quang)", "Thạch Anh Vàng (Citrine)"],
     advice: "Bạn cần rõ ràng và sự định hướng trong cuộc sống.",
   },
   anxious: {
     label: "Bất an, Khó ngủ",
     value: "anxious",
-    stones: ["Aquamarine", "Thạch Anh Xanh"],
+    stones: ["Aquamarine", "Đá Mặt Trăng (Moonstone)"],
     advice: "Năng lượng bình yên sẽ giúp bạn tìm lại cân bằng.",
   },
   angry: {
     label: "Nóng nảy, Dễ cáu gắt",
     value: "angry",
-    stones: ["Thạch Anh Xanh", "Tourmaline Đen"],
+    stones: ["Aquamarine", "Thạch Anh Hồng (Rose Quartz)"],
     advice: "Bạn cần năng lượng mát mẻ để hạ bớt sự nóng nảy.",
   },
   bored: {
     label: "Bình ổn, Hơi tẻ nhạt",
     value: "bored",
-    stones: ["Citrine", "Sunstone"],
+    stones: ["Thạch Anh Vàng (Citrine)", "Đá Mặt Trời (Sunstone)"],
     advice: "Bạn cần kích thích năng lượng tích cực và niềm vui.",
   },
   happy: {
     label: "Vui vẻ, Bình yên",
     value: "happy",
-    stones: ["Thạch Anh Hồng", "Moonstone"],
+    stones: ["Thạch Anh Hồng (Rose Quartz)", "Đá Mặt Trăng (Moonstone)"],
     advice: "Hãy duy trì và khuếch tán năng lượng tích cực này.",
   },
 }
 
-// Barriers & Solutions
+// Barriers & Solutions (Cập nhật cho 11 đá)
 export const barriers = {
   procrastination: {
     label: "Sự trì hoãn, Lười biếng",
     value: "procrastination",
-    supportStones: ["Mắt Hổ", "Obsidian Đen"],
+    supportStones: ["Fluorite", "Ngọc Hồng Lựu (Garnet)"],
     advice: "Tăng cường ý chí hành động",
   },
   confidence: {
     label: "Thiếu sự tự tin, Sợ đám đông",
     value: "confidence",
-    supportStones: ["Mặt Trăng Đá", "Rhodonite"],
+    supportStones: ["Đá Mặt Trời (Sunstone)", "Thạch Anh Hồng (Rose Quartz)"],
     advice: "Xây dựng tự tin từ trong sâu thẳm",
   },
   luck: {
     label: "Thiếu may mắn, Gặp vận xui",
     value: "luck",
-    supportStones: ["Pyrite", "Jade"],
+    supportStones: ["Peridot", "Thạch Anh Vàng (Citrine)"],
     advice: "Thu hút năng lượng tích cực và may mắn",
   },
   health: {

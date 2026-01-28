@@ -87,7 +87,7 @@ export default function ResultPage() {
       } catch (err) {
         console.error("[v0] Parse error:", err)
         setError("Lỗi đọc dữ liệu")
-      }
+      } 
     } else {
       setError("Không tìm thấy dữ liệu. Vui lòng điền form lại.")
     }
@@ -104,7 +104,7 @@ export default function ResultPage() {
           <p className="text-healing-brown font-serif text-lg">AI đang tạo vòng tay cho bạn...</p>
         </div>
       </main>
-    )
+    )     
   }
 
   if (error || !recommendation || !formData) {
