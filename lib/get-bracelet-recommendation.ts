@@ -60,65 +60,79 @@ export interface BraceletRecommendation {
   }
 }
 
-// Danh sách đá được phép dùng
+// Danh sách đá được phép dùng (Chỉ 11 loại đá)
 const ALLOWED_STONES = [
-  "Thạch anh trắng",
-  "Thạch anh tím",
-  "Mắt hổ",
-  "Thạch anh vàng",
-  "Thạch anh hồng",
-  "Đá mặt trăng",
-  "Aquamarine",
+  "Thạch Anh Vàng (Citrine)",
+  "Thạch Anh Trắng (Clear Quartz)",
+  "Thạch Anh Tím (Amethyst)",
   "Fluorite",
-  "Thạch anh xanh",
-  "Obsidian đen",
-  "Đá mặt trời",
+  "Đá Mặt Trăng (Moonstone)",
+  "Đá Mặt Trời (Sunstone)",
+  "Đá Labradorite (Đá Hắc Nguyệt Quang)",
+  "Peridot",
+  "Aquamarine",
+  "Thạch Anh Hồng (Rose Quartz)",
+  "Ngọc Hồng Lựu (Garnet)",
 ]
 
-// Color mapping
+// Color mapping (ánh xạ sang 11 đá)
 const STONE_COLORS: Record<string, string> = {
-  "Thạch anh trắng": "#F5F5F5",
-  "Thạch anh tím": "#9966CC",
-  "Mắt hổ": "#B8860B",
-  "Thạch anh vàng": "#FFD700",
-  "Thạch anh hồng": "#FFB6C1",
-  "Đá mặt trăng": "#E8D5D5",
-  Aquamarine: "#7FFFD4",
-  Fluorite: "#B0C4DE",
-  "Thạch anh xanh": "#1E90FF",
-  "Obsidian đen": "#1C1C1C",
-  "Đá mặt trời": "#FFA500",
+  "Thạch Anh Vàng (Citrine)": "#FFD700",
+  "Thạch Anh Trắng (Clear Quartz)": "#FFFFFF",
+  "Thạch Anh Tím (Amethyst)": "#9966CC",
+  "Fluorite": "#8B7DBC",
+  "Đá Mặt Trăng (Moonstone)": "#F0E68C",
+  "Đá Mặt Trời (Sunstone)": "#FF8C00",
+  "Đá Labradorite (Đá Hắc Nguyệt Quang)": "#A8DADC",
+  "Peridot": "#9ACD32",
+  "Aquamarine": "#7FFFD4",
+  "Thạch Anh Hồng (Rose Quartz)": "#FFB6C1",
+  "Ngọc Hồng Lựu (Garnet)": "#C71585",
 }
 
-// Stone meaning mapping
+// Stone meaning mapping (từ zodiac-data.ts)
 const STONE_MEANINGS: Record<string, string> = {
-  "Thạch anh trắng":
-    "Làm sạch năng lượng, bảo vệ, tạo sự rõ ràng trong suy nghĩ và ý định",
-  "Thạch anh tím":
-    "Giảm stress, bình tĩnh tâm trí, cân bằng cảm xúc, hỗ trợ thiền định",
-  "Mắt hổ":
-    "Tập trung, hành động, xua đi năng lượng xấu, tăng cường sự tự tin",
-  "Thạch anh vàng": "Tạo năng lượng tích cực, hấp dẫn may mắn, tài lộc",
-  "Thạch anh hồng": "Tình yêu, tự yêu thương, chữa lành tổn thương cảm xúc",
-  "Đá mặt trăng": "An thần, cân bằng hormone nữ, kết nối trực giác",
-  Aquamarine: "Hạ nhiệt, bình tĩnh, kết nối tiếp xúc hiệu quả",
-  Fluorite: "Tập trung, rõ ràng suy nghĩ, hỗ trợ học tập",
-  "Thạch anh xanh": "Hồi phục, cân bằng thể chất, chữa lành bệnh lành",
-  "Obsidian đen": "Bảo vệ, xua đi năng lượng xấu, hỗ trợ nhận thức",
-  "Đá mặt trời": "Tự tin, tỏa sáng, mang lại ấm áp và tích cực",
+  "Thạch Anh Vàng (Citrine)":
+    "Thu hút tài lộc, năng lượng tích cực, thành công, tự tin",
+  "Thạch Anh Trắng (Clear Quartz)":
+    "Khuếch đại năng lượng, thanh tịnh, làm rõ ý định, cân bằng tổng thể",
+  "Thạch Anh Tím (Amethyst)":
+    "Giảm stress, tăng trực giác, bảo vệ tâm trí, mang lại bình yên sâu lắng",
+  "Fluorite":
+    "Tăng tập trung, bảo vệ cảm xúc, giúp suy nghĩ rõ ràng, loại bỏ năng lượng tiêu cực",
+  "Đá Mặt Trăng (Moonstone)":
+    "Cân bằng cảm xúc, tăng trực giác, nuôi dưỡng nữ tính, hỗ trợ giấc ngủ sâu",
+  "Đá Mặt Trời (Sunstone)":
+    "Tăng sinh lực, vui vẻ, tự tin, kết nối với năng lượng mặt trời tích cực",
+  "Đá Labradorite (Đá Hắc Nguyệt Quang)":
+    "Thức tỉnh tiềm năng, bảo vệ aura, hỗ trợ thay đổi tích cực, tăng sáng tạo",
+  "Peridot":
+    "Chữa lành tim, thu hút thịnh vượng, buông bỏ gánh nặng, tái sinh năng lượng",
+  "Aquamarine":
+    "Mang lại bình tĩnh, hỗ trợ giao tiếp chân thành, thanh lọc cảm xúc",
+  "Thạch Anh Hồng (Rose Quartz)":
+    "Tự yêu bản thân, mở lòng đón tình yêu, chữa lành vết thương tình cảm",
+  "Ngọc Hồng Lựu (Garnet)":
+    "Tăng sức sống, đam mê, grounding năng lượng, bảo vệ và kích hoạt ý chí",
 }
 
-// Rule-based mapping functions
+// Rule-based mapping functions (cập nhật cho 11 đá)
 function getHealingStone(trangThaiTinhThan?: string): string {
-  if (!trangThaiTinhThan) return "Thạch anh tím" // default fallback
+  if (!trangThaiTinhThan) return "Thạch Anh Tím (Amethyst)" // default
 
   const mappings: Record<string, string> = {
-    "stress": "Thạch anh tím",
-    "lost": "Fluorite",
-    "anxious": "Đá mặt trăng",
+    "stress": "Thạch Anh Tím (Amethyst)",
+    "căng thẳng": "Thạch Anh Tím (Amethyst)",
+    "lost": "Đá Labradorite (Đá Hắc Nguyệt Quang)",
+    "mông lung": "Đá Labradorite (Đá Hắc Nguyệt Quang)",
+    "anxious": "Đá Mặt Trăng (Moonstone)",
+    "bất an": "Đá Mặt Trăng (Moonstone)",
     "angry": "Aquamarine",
-    "bored": "Thạch anh vàng",
-    "happy": "Thạch anh hồng",
+    "nóng nảy": "Aquamarine",
+    "bored": "Thạch Anh Vàng (Citrine)",
+    "tẻ nhạt": "Thạch Anh Vàng (Citrine)",
+    "happy": "Thạch Anh Hồng (Rose Quartz)",
+    "vui vẻ": "Thạch Anh Hồng (Rose Quartz)",
   }
 
   for (const [key, value] of Object.entries(mappings)) {
@@ -127,17 +141,23 @@ function getHealingStone(trangThaiTinhThan?: string): string {
     }
   }
 
-  return "Thạch anh tím"
+  return "Thạch Anh Tím (Amethyst)"
 }
 
 function getBoostStone(raoCan?: string): string {
-  if (!raoCan) return "Mắt hổ" // default fallback
+  if (!raoCan) return "Fluorite" // default - tập trung
 
   const mappings: Record<string, string> = {
-    "procrastination": "Mắt hổ",
-    "confidence": "Đá mặt trời",
-    "bad_luck": "Obsidian đen",
-    "health": "Thạch anh xanh",
+    "procrastination": "Fluorite",
+    "trì hoãn": "Fluorite",
+    "confidence": "Đá Mặt Trời (Sunstone)",
+    "tự tin": "Đá Mặt Trời (Sunstone)",
+    "unclear": "Thạch Anh Trắng (Clear Quartz)",
+    "mông lung": "Thạch Anh Trắng (Clear Quartz)",
+    "health": "Peridot",
+    "sức khỏe": "Peridot",
+    "energy": "Ngọc Hồng Lựu (Garnet)",
+    "năng lượng": "Ngọc Hồng Lựu (Garnet)",
   }
 
   for (const [key, value] of Object.entries(mappings)) {
@@ -146,17 +166,23 @@ function getBoostStone(raoCan?: string): string {
     }
   }
 
-  return "Mắt hổ"
+  return "Fluorite"
 }
 
 function getThemeStone(suMenh?: string): string {
-  if (!suMenh) return "Thạch anh vàng" // default fallback
+  if (!suMenh) return "Thạch Anh Vàng (Citrine)" // default
 
   const mappings: Record<string, string> = {
-    "wealth": "Thạch anh vàng",
-    "love": "Thạch anh hồng",
+    "wealth": "Thạch Anh Vàng (Citrine)",
+    "tài lộc": "Thạch Anh Vàng (Citrine)",
+    "love": "Thạch Anh Hồng (Rose Quartz)",
+    "tình yêu": "Thạch Anh Hồng (Rose Quartz)",
     "wisdom": "Fluorite",
-    "health": "Thạch anh tím",
+    "khôn ngoan": "Fluorite",
+    "health": "Thạch Anh Tím (Amethyst)",
+    "sức khỏe": "Thạch Anh Tím (Amethyst)",
+    "peace": "Thạch Anh Trắng (Clear Quartz)",
+    "bình yên": "Thạch Anh Trắng (Clear Quartz)",
   }
 
   for (const [key, value] of Object.entries(mappings)) {
@@ -165,18 +191,23 @@ function getThemeStone(suMenh?: string): string {
     }
   }
 
-  return "Thạch anh vàng"
+  return "Thạch Anh Vàng (Citrine)"
 }
 
 function getMainStone(yeuToThienNhien?: string): string {
-  if (!yeuToThienNhien) return "Thạch anh trắng"
+  if (!yeuToThienNhien) return "Thạch Anh Trắng (Clear Quartz)"
 
   const mappings: Record<string, string> = {
-    "fire": "Thạch anh vàng",
+    "fire": "Thạch Anh Vàng (Citrine)",
+    "hỏa": "Thạch Anh Vàng (Citrine)",
     "water": "Aquamarine",
+    "nước": "Aquamarine",
     "earth": "Fluorite",
-    "air": "Thạch anh trắng",
-    "metal": "Obsidian đen",
+    "thổ": "Fluorite",
+    "air": "Thạch Anh Trắng (Clear Quartz)",
+    "khí": "Thạch Anh Trắng (Clear Quartz)",
+    "wood": "Peridot",
+    "mộc": "Peridot",
   }
 
   for (const [key, value] of Object.entries(mappings)) {
@@ -185,7 +216,7 @@ function getMainStone(yeuToThienNhien?: string): string {
     }
   }
 
-  return "Thạch anh trắng"
+  return "Thạch Anh Trắng (Clear Quartz)"
 }
 
 function getCharmSuggestions(
@@ -297,21 +328,21 @@ function applyNegativeFilters(
     return { bangDa, applied }
   }
 
-  // Remove Obsidian đen if dark tone not wanted
+  // Remove dark stones if dark tone not wanted
   if (
     mauKhongMuon.toLowerCase().includes("tối") ||
     mauKhongMuon.toLowerCase().includes("đen")
   ) {
-    bangDa = bangDa.filter((d) => d.tenDa !== "Obsidian đen")
+    bangDa = bangDa.filter((d) => !["Ngọc Hồng Lựu (Garnet)"].includes(d.tenDa))
     if (!bangDa.find((d) => d.vaiTro === "boost")) {
       bangDa.push({
         vaiTro: "boost",
-        tenDa: "Thạch anh trắng",
-        mauSac: STONE_COLORS["Thạch anh trắng"],
-        yNghia: STONE_MEANINGS["Thạch anh trắng"],
+        tenDa: "Thạch Anh Trắng (Clear Quartz)",
+        mauSac: STONE_COLORS["Thạch Anh Trắng (Clear Quartz)"],
+        yNghia: STONE_MEANINGS["Thạch Anh Trắng (Clear Quartz)"],
       })
     }
-    applied.push("Loại bỏ Obsidian đen (tông tối)")
+    applied.push("Loại bỏ đá tông tối (Garnet)")
   }
 
   // Limit colors if too many wanted
@@ -323,9 +354,9 @@ function applyNegativeFilters(
       bangDa = bangDa.slice(0, 2)
       bangDa.push({
         vaiTro: "theme",
-        tenDa: "Thạch anh trắng",
-        mauSac: STONE_COLORS["Thạch anh trắng"],
-        yNghia: STONE_MEANINGS["Thạch anh trắng"],
+        tenDa: "Thạch Anh Trắng (Clear Quartz)",
+        mauSac: STONE_COLORS["Thạch Anh Trắng (Clear Quartz)"],
+        yNghia: STONE_MEANINGS["Thạch Anh Trắng (Clear Quartz)"],
       })
     }
     applied.push("Giới hạn số loại đá (tối giản màu sắc)")
