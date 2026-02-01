@@ -28,22 +28,30 @@ export function getGeminiClient(): Promise<GoogleGenerativeAI> {
     genAIPromise = (async () => {
       let apiKey = process.env.GEMINI_API_KEY;
 
-      if (!apiKey) {
-        try {
-          const siteUrl = process.env.URL || "http://localhost:3000";
-          const response = await fetch(`${siteUrl}/api/gemini-key`);
-          
-          if (!response.ok) {
-            const errorBody = await response.text();
-            throw new Error(`Failed to fetch API key: ${response.statusText}, Body: ${errorBody}`);
-          }
-          
-          const data = await response.json();
-          apiKey = data.apiKey;
+      // Fallback hardcoded key for local testing (provided by user)
+      const FALLBACK_GEMINI_API_KEY = 'AIzaSyDbKb5-Hg8newKxu1E0zIFovMGlJOhwSDk';
 
-        } catch (error) {
-          console.error('Error fetching Gemini API key:', error);
-          throw new Error('Could not initialize Gemini AI client');
+      if (!apiKey) {
+        if (FALLBACK_GEMINI_API_KEY) {
+          console.warn('[Gemini] Using fallback hardcoded GEMINI_API_KEY for local testing');
+          apiKey = FALLBACK_GEMINI_API_KEY;
+        } else {
+          try {
+            const siteUrl = process.env.URL || "http://localhost:3000";
+            const response = await fetch(`${siteUrl}/api/gemini-key`);
+            
+            if (!response.ok) {
+              const errorBody = await response.text();
+              throw new Error(`Failed to fetch API key: ${response.statusText}, Body: ${errorBody}`);
+            }
+            
+            const data = await response.json();
+            apiKey = data.apiKey;
+
+          } catch (error) {
+            console.error('Error fetching Gemini API key:', error);
+            throw new Error('Could not initialize Gemini AI client');
+          }
         }
       }
       
