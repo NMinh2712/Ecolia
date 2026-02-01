@@ -142,9 +142,18 @@ export function Chatbot() {
         }),
       });
 
-      if (!res.ok) throw new Error("API error");
+      const resText = await res.text();
+      let data: any;
+      try {
+        data = JSON.parse(resText || '{}');
+      } catch {
+        data = { error: resText };
+      }
 
-      const data = await res.json();
+      if (!res.ok) {
+        const errMsg = data?.error || data?.details || `API error: ${res.status}`;
+        throw new Error(errMsg);
+      }
 
       setMessages((prev) => [
         ...prev,
